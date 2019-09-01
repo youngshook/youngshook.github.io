@@ -9,9 +9,10 @@ script:
   - hugo
 after_script:
   - cd ./public
-  - echo 'sker.me' > CNAME
+  - mv ../README.md .
+  - echo 'blog.sker.me' > CNAME
   - git init
-  - git config user.name "Young Shook"
+  - git config user.name "YoungShook"
   - git config user.email "shook.young@gmail.com"
   - git add .
   - git commit -m "Update By TravisCI With Build $TRAVIS_BUILD_NUMBER"
