@@ -2,6 +2,7 @@
 layout: post
 title: "Objective-C Fake Code"
 date: 2014-11-26T16:02:00
+draft: false
 comments: true
 categories: Objective-C
 published: true

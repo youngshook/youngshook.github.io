@@ -2,6 +2,7 @@
 layout: post
 title: "Objective-C ARC 下的陷阱与最佳实践"
 date: 2013-05-22T19:45:00
+draft: false
 comments: true
 categories: Objective-C
 published: true

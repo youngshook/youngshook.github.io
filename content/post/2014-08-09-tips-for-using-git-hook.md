@@ -2,6 +2,7 @@
 layout: post
 title: "Tips for using Git hook"
 date: 2014-08-09T13:27:00
+draft: false
 comments: true
 categories: Tips
 published: true

@@ -2,6 +2,7 @@
 layout: post
 title: "用 Runtime 动态增加 Category 的属性"
 date: 2014-07-14T16:12:00
+draft: false
 comments: true
 categories: Objective-C
 published: true

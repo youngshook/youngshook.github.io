@@ -2,6 +2,7 @@
 layout: post
 title: "行走在 Objective-C 动态类型"
 date: 2013-03-12T13:58:00
+draft: false
 comments: true
 categories: Objective-C
 published: true

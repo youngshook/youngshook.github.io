@@ -2,6 +2,7 @@
 layout: post
 title: "在iOS App 图标上绘制版本信息"
 date: 2014-02-11T23:42:00
+draft: false
 comments: true
 categories: iOS
 published: true

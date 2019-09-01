@@ -2,6 +2,7 @@
 layout: page
 title: "摇滚无用"
 date: 2014-06-26T00:08:00
+draft: false
 comments: true
 categories: Muisc
 published: true
