@@ -1,5 +1,6 @@
 baseURL = "https://blog.sker.me/"
 languageCode = "zh-CN"
+DefaultContentLanguage = "cn"
 title = "Ace's Life"
 theme = "yinyang"
 hasCJKLanguage = true # 开启可以让「字数统计」统计汉字
