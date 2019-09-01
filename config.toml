@@ -1,5 +1,5 @@
 baseURL = "https://blog.sker.me/"
-languageCode = "en-us"
+languageCode = "zh-CN"
 title = "Ace's Blog"
 theme = "yinyang"
 hasCJKLanguage = true # 开启可以让「字数统计」统计汉字
@@ -10,14 +10,17 @@ googleAnalytics = "UA-146746882-1" # Google 统计 id
 
 [author]
   name = "Ace.li"
-  homepage = "https://sker.me/"
+  homepage = "https://blog.sker.me/"
+
+[Permalinks]
+ posts = "/:year/:filename/"
 
 [params]
 mainSections = ["post"]
 headTitle = "Ace's Life"
-disqus = "youngshook"
+disqus = "YoungShook"
 extraHead = ''
 
 [[params.socials]]
 name = "RSS"
-link = "/atom.xml"
+link = "/index.xml"
