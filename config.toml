@@ -1,0 +1,23 @@
+baseURL = "https://blog.sker.me/"
+languageCode = "en-us"
+title = "Ace's Blog"
+theme = "yinyang"
+hasCJKLanguage = true # 开启可以让「字数统计」统计汉字
+paginate = 10 # 每页的文章数
+enableEmoji = true # 支持 Emoji
+enableRobotsTXT = true # 支持 robots.txt
+googleAnalytics = "UA-146746882-1" # Google 统计 id
+
+[author]
+  name = "Ace.li"
+  homepage = "https://sker.me/"
+
+[params]
+mainSections = ["post"]
+headTitle = "Ace's Life"
+disqus = "youngshook"
+extraHead = ''
+
+[[params.socials]]
+name = "RSS"
+link = "/atom.xml"

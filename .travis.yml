@@ -1,0 +1,23 @@
+branches:
+  only:
+    - master
+install:
+  - wget https://github.com/gohugoio/hugo/releases/download/v0.57.2/hugo_0.57.2_Linux-64bit.deb
+  - sudo dpkg -i hugo*.deb
+  - git clone https://github.com/youngshook/hugo-theme-yinyang.git themes/yinyang
+script:
+  - hugo
+after_script:
+  - cd ./public
+  - echo 'sker.me' > CNAME
+  - git init
+  - git config user.name "Young Shook"
+  - git config user.email "shook.young@gmail.com"
+  - git add .
+  - git commit -m "Update By TravisCI With Build $TRAVIS_BUILD_NUMBER"
+  - git push --force --quiet "https://$GITHUB_TOKEN@${GH_REF}" master:master
+  - git push --quiet "https://$GITHUB_TOKEN@${GH_REF}" master:master --tags
+  - cd ..
+env:
+ global:
+   - GH_REF: github.com/youngshook/youngshook.github.io.git
