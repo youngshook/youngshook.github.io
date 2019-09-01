@@ -1,5 +1,5 @@
-# 博客笔记
+# A Blog site
 
 > hugo + travis ci
 
-[![Build Status](https://travis-ci.org/youngshook/sker.svg?branch=master)](https://travis-ci.org/youngshook/sker)
+[![Build Status](https://travis-ci.org/youngshook/youngshook.github.io.svg?branch=source)](https://travis-ci.org/youngshook/youngshook.github.io)
