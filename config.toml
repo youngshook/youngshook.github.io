@@ -1,19 +1,19 @@
 baseURL = "https://blog.sker.me/"
 languageCode = "zh-CN"
-title = "Ace's Blog"
+title = "Ace's Life"
 theme = "yinyang"
 hasCJKLanguage = true # 开启可以让「字数统计」统计汉字
-paginate = 10 # 每页的文章数
+paginate = 30 # 每页的文章数
 enableEmoji = true # 支持 Emoji
 enableRobotsTXT = true # 支持 robots.txt
 googleAnalytics = "UA-146746882-1" # Google 统计 id
 
 [author]
-  name = "Ace.li"
-  homepage = "https://blog.sker.me/"
+name = "Ace.li"
+homepage = "https://blog.sker.me/"
 
 [Permalinks]
- posts = "/:year/:filename/"
+posts = "/:year/:filename/"
 
 [params]
 mainSections = ["post"]
@@ -24,3 +24,9 @@ extraHead = ''
 [[params.socials]]
 name = "RSS"
 link = "/index.xml"
+
+[languages]
+  [languages.cn]
+    contentDir = "content"
+    languageName = "Chinese"
+    weight = 2
