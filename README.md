@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/youngshook/youngshook.github.io.svg?branch=source)](https://travis-ci.org/youngshook/youngshook.github.io)
 
-#### [blog.sker.me](https://blog.sker.me)
+#### [https://blog.sker.me](https://blog.sker.me)
 
 > Hugo + Travis.ci
 
