@@ -23,4 +23,5 @@ env:
  global:
    - GH_REF: github.com/youngshook/youngshook.github.io.git
 notifications:
-  slack:battlestationgroup:ICYkSaOnazrtdAxujFfSEs0M
+  slack:
+  battlestationgroup: ICYkSaOnazrtdAxujFfSEs0M
