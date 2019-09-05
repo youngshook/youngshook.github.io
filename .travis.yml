@@ -1,27 +1,28 @@
 branches:
   only:
-    - source
+  - source
 install:
-  - wget https://github.com/gohugoio/hugo/releases/download/v0.57.2/hugo_0.57.2_Linux-64bit.deb
-  - sudo dpkg -i hugo*.deb
-  - git clone https://github.com/youngshook/hugo-theme-yinyang.git themes/yinyang
+- wget https://github.com/gohugoio/hugo/releases/download/v0.57.2/hugo_0.57.2_Linux-64bit.deb
+- sudo dpkg -i hugo*.deb
+- git clone https://github.com/youngshook/hugo-theme-yinyang.git themes/yinyang
 script:
-  - hugo
+- hugo
 after_script:
-  - cd ./public
-  - mv ../README.md .
-  - echo 'blog.sker.me' > CNAME
-  - git init
-  - git config user.name "YoungShook"
-  - git config user.email "shook.young@gmail.com"
-  - git add .
-  - git commit -m "Update By TravisCI With Build $TRAVIS_BUILD_NUMBER"
-  - git push --force --quiet "https://$GITHUB_TOKEN@${GH_REF}" master:master
-  - git push --quiet "https://$GITHUB_TOKEN@${GH_REF}" master:master --tags
-  - cd ..
+- cd ./public
+- mv ../README.md .
+- echo 'blog.sker.me' > CNAME
+- git init
+- git config user.name "YoungShook"
+- git config user.email "shook.young@gmail.com"
+- git add .
+- git commit -m "Update By TravisCI With Build $TRAVIS_BUILD_NUMBER"
+- git push --force --quiet "https://$GITHUB_TOKEN@${GH_REF}" master:master
+- git push --quiet "https://$GITHUB_TOKEN@${GH_REF}" master:master --tags
+- cd ..
 env:
- global:
-   - GH_REF: github.com/youngshook/youngshook.github.io.git
+  global:
+  - GH_REF: github.com/youngshook/youngshook.github.io.git
 notifications:
   slack:
+    secure: oTHH7/MZFp05uaUU3pxPO/O/CKapqlmmyf4ryvb1Z3q3BOUsT7hJfgqMe0j/yneetAoBGjNSbj9BgCtyGRHfe7UdB+H7tFfzSx55TRJpxvWETAtxsNjTLGsa0PKCumzDKX2Ze7WfVkxtSTAAc7ZSD0V8Bc9bLgfucU3kSgaR36WFWG9VDEahrqSG5ESZvlyjUAKY0+U8/BbjNdFfDuR6s8K5VAHiSFo6DqNYSdXbbUW2O9ItZmlL8TStMIf38rM+7Ck3jislDV/l7cJ7Akwa0TF92NMP3FiGArfRy30uTbJgqP/PxGjqM5MwO1po7KQK9QcHu73CCQ3w6aN52jmztvWwOuXWp6+US4SceAlRBpNwRfQj4562oB998qD2xY/kRsyYFx9xLmmpQiJBa3pdc3E9o6pwiUEq2rNYA6U/OfOHyFn85NlTGJ8x+uZHlsYtuteBffUAQ4DzbodjKUnIppIbq0QS+q9DpGBtnruLaG4RGzapKpj6Ofn6YcUkKnkrHuCNbr1tYQIwNCxW8UB+Dseq9MltjDxXWRasuEosQALDpuWxj4pCPkMNAhwzhN335ssPFNaCtbS2TtiWhD0dkPv0C7vEcrcYF9V2CO1FfFNUQ70d/a5+jpxBBR6UaAO2+g3nSrGBWauLhgVTO+NiXwpa9gcd5qaq5pjcykrpgpI=
   battlestationgroup: ICYkSaOnazrtdAxujFfSEs0M
