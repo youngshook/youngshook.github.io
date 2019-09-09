@@ -4,9 +4,16 @@ title: "Objective-C Fake Code"
 date: 2014-11-26T16:02:00
 draft: false
 comments: true
-categories: Objective-C
 published: true
 toc: false
+categories: [
+    "iOS",
+    "Tech"
+]
+tags: [
+    "Objective-C",
+    "tech"
+]
 ---
 
 Swift 诞生, 意味着 Objective-C 语言终究会推出历史舞台.

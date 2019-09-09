@@ -7,6 +7,14 @@ comments: true
 categories: Muisc
 published: true
 toc: false
+categories: [
+    "Music"
+]
+
+tags: [
+    "music",
+    "rock"
+]
 ---
 
 ![Rainbow 1978 Long Live Rock Roll](http://ww1.sinaimg.cn/large/7853084cjw1f7ayttgeh0j216y0l2785.jpg)

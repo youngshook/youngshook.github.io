@@ -4,9 +4,18 @@ title: "行走在 Objective-C 动态类型"
 date: 2013-03-12T13:58:00
 draft: false
 comments: true
-categories: Objective-C
 published: true
 toc: false
+categories: [
+    "iOS",
+    "Tech"
+]
+
+tags: [
+    "iOS",
+    "Objective-C",
+    "tech"
+]
 ---
 
 用了这么长时间的 Objective-C 语言, 怎么来"肤浅"描述下什么是 Objective-C 呢?, Objective-C 是一个 C 语言的超集, 整个语言是在 C 语言的基础上添加了一层预处理机制和强大运行时系统. 说到运行时系统, 整个语言精华就在这个这里,

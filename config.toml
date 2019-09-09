@@ -13,9 +13,6 @@ googleAnalytics = "UA-146746882-1" # Google 统计 id
 	name = "Ace.li"
 	homepage = "https://blog.sker.me/"
 
-[Permalinks]
- 	posts = "/:year/:month/:title/"
-
 [params]
 	mainSections = ["posts"]
 	headTitle = "Ace's Life"
@@ -30,4 +27,4 @@ googleAnalytics = "UA-146746882-1" # Google 统计 id
   [languages.cn]
     contentDir = "content"
     languageName = "Chinese"
-    weight = 2
+    weight = 1

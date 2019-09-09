@@ -4,9 +4,15 @@ title: "联通宽带光猫破解提权"
 date: 2017-03-25T21:58:00
 draft: false
 comments: true
-categories: Tech
 published: true
 toc: false
+categories: [
+    "Tech"
+]
+tags: [
+    "hack",
+    "tech"
+]
 ---
 
 最近把家里宽带从电信转为联通百兆光纤，然而联通安装的光猫是**路由模式**，直接造成家里的智能路由器 WAN 口无法直接得到外网 IP ，当然无直接外网 IP 问题也不大，也有方式可以搞定，但是总是感觉无法全局接管网络有点不爽，于是乎就对联通光猫下**黑手**了。

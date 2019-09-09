@@ -4,9 +4,16 @@ title: "换个姿势调试 UIWebView"
 date: 2013-04-06T22:32:00
 draft: false
 comments: true
-categories: iOS
 published: true
 toc: false
+categories: [
+    "iOS",
+    "Tech"
+]
+tags: [
+    "webview",
+    "tech"
+]
 ---
 
 Hybrid App 开发 App 现在越来越流行, 尤其对于快速迭代开发来说, Hybrid App 是一个快速验证需求点的好方式,在 Hybrid App 过程中不可避免的要和 UIWebView 打交道, 调试 `UIWebView` 上的网页不像桌面版的 Safari 或 Chrome 一样有强大的开发者工具, 在手机上调试 `UIWebView` 是一件痛苦的事情, 找了几种调试的方式, 对比下来发现还是麻烦, 不如换个姿势找找其他方式?

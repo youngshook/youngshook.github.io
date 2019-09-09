@@ -4,9 +4,16 @@ title: "在iOS App 图标上绘制版本信息"
 date: 2014-02-11T23:42:00
 draft: false
 comments: true
-categories: iOS
 published: true
 toc: false
+categories: [
+    "iOS",
+    "Tech"
+]
+tags: [
+    "Objective-C",
+    "tech"
+]
 ---
 
 作为一名 iOS Developer, 想必在日差工作中会频繁的提交 App 的测试版本给 QA 测试, 或者给产品提供演示版本,通常我们并不能直观的通过 App 来判断其版本, 例如我们分发了多个测试版本的话,这样会造成在一个测试设备上会出现多个相同图标的 App, 我们通常区别一个 App 不同版本, 主要通过 App Version 或 Git branch name 来区分不同测试分发版本, 那么在 App 测试版本的 Icon 上添加这些信息话,测试人员就会很容易分别不同版本 App, 即可方便的同时测多个 App 版本.

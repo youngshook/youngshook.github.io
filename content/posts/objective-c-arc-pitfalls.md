@@ -4,9 +4,16 @@ title: "Objective-C ARC 下的陷阱与最佳实践"
 date: 2013-05-22T19:45:00
 draft: false
 comments: true
-categories: Objective-C
 published: true
 toc: false
+categories: [
+    "iOS",
+    "Tech"
+]
+tags: [
+    "Objective-C",
+    "tech"
+]
 ---
 
 Objective-C 是一个非常酷的编程语言 (尽管它和 C++ 一个年代出生). 它的流行不仅仅是因为 iOS 和 MacOS 平台,也是其在移动平台上强大的性能. 然而在日常开发过程中仍然要面对这个古老语言的诸多坑, 例如面对 Objective-C 的内存管理时, 虽然有强大的 ARC, 并且 Xcode 已经有很智能的警告提示, 但当面对复杂的内存管理的时候,仍然会掉进坑中, 例如在 ARC 环境下进行 `Core Foundation` 和 `Foundation` 之间数据类型交换. 这种技术也叫做 `Toll-Free Bridging`, 看起来很高端的样子, 今天我们就来说说如何以轻盈的姿势避开这些坑.
