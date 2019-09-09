@@ -203,4 +203,3 @@ __可以在[Github][Category]上找到本文 Category 的完整实现.__
 
 [DRY]:http://en.wikipedia.org/wiki/Don't_repeat_yourself
 [Category]:https://github.com/youngshook/YSDynamicProperties
-

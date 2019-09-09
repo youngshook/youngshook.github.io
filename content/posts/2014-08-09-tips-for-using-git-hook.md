@@ -112,4 +112,3 @@ chmod a+x ~/.git-templates/hooks/post-commit
 5. 在已存在的 repo 中使用全局 hook 仅仅重新 `git init` 即可.
 
   (Note: 如果当前 git repo 中已经存在一个同名的 hook 时, 默认是不会使用全局 hook 做覆盖的.)
-

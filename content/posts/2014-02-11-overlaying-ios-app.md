@@ -76,7 +76,7 @@ function processIcon() {
     base_path=`find ${SRCROOT} -name $base_file`
 
     if [[ ! -f ${base_path} || -z ${base_path} ]]; then
-        return;
+	return;
     fi
 
     target_file=`echo $base_file | sed "s/_base//"`
@@ -113,4 +113,3 @@ processIcon "Icon-72@2x_base.png"
 [3]: http://www.runscriptbuildphase.com/
 [4]: https://gist.github.com/c0a12efcc06f6cbc616e
 [5]: https://gist.github.com/623aee69522f6d747ece
-

@@ -68,10 +68,10 @@ NSString *description = UITableViewCellStyleDescription[style];
 		Method originalMethod = class_getInstanceMethod(class, originalSelector);
 		Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
 		BOOL didAddMethod = class_addMethod(class,
-		                                    originalSelector, 	method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod));
+						    originalSelector, 	method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod));
 		if (didAddMethod) {
 		    class_replaceMethod(class,
-		                        swizzledSelector, method_getImplementation(originalMethod), 	method_getTypeEncoding(originalMethod));
+					swizzledSelector, method_getImplementation(originalMethod), 	method_getTypeEncoding(originalMethod));
 		}
 		else {
 		    method_exchangeImplementations(originalMethod, swizzledMethod);
@@ -93,9 +93,9 @@ const char *attributes = property_getAttributes(class_getProperty([self  class],
 NSString *typeAttribute = [[[NSString stringWithUTF8String:attributes]  componentsSeparatedByString:@","] firstObject];
 const char *propertyType = [[typeAttribute substringFromIndex:1] UTF8String];
 if (strcmp(propertyType, @encode(float)) == 0) {
-        // float
+	// float
 } else if (strcmp(propertyType, @encode(int)) == 0) {
-        // int
+	// int
 }
 ```
 
@@ -104,8 +104,8 @@ if (strcmp(propertyType, @encode(float)) == 0) {
 ``` objc
 //Specifying the Availability of a Method
 void foo() __attribute__((availability(macosx, introduced=10.4,
-                                           deprecated=10.6,
-                                           obsoleted=10.7)));
+					   deprecated=10.6,
+					   obsoleted=10.7)));
 ```
 
 ### # 1.6 Hiding a Class
@@ -123,7 +123,7 @@ __attribute__((visibility("hidden"))
 //Hiding a Method
 - (BOOL)respondsToSelector:(SEL)selector {
     if (selector == @selector(methodToHide)) {
-        return NO; }
+	return NO; }
     return [[self class] instancesRespondToSelector:selector];
 }
 ```
@@ -159,8 +159,8 @@ if (status == KERN_SUCCESS) {
 - (void)method:(id)object, ... NS_REQUIRES_NIL_TERMINATION { va_list args;
     va_start(args, object);
     while (object) {
-        // ...
-        object = va_arg(args, id);
+	// ...
+	object = va_arg(args, id);
     }
     va_end(args);
 }
@@ -175,7 +175,7 @@ static double average(int count, ...) {
     va_start(args, count);
     int sum = 0;
     for (int i = 0; i < count; i++) {
-        sum += va_arg(args, int);
+	sum += va_arg(args, int);
     }
     va_end(args);
     return (double)sum / (double)count;
@@ -266,9 +266,9 @@ extern uint64_t dispatch_benchmark(size_t count, void (^block)(void))...----
 size_t const objectCount = 1000;
 uint64_t t = dispatch_benchmark(10000, ^{
     @autoreleasepool { id obj = @42;
-            NSMutableArray *array = [NSMutableArray array]; for (size_t i = 0; i < objectCount; ++i) {
-                [array addObject:obj];
-            }
+	    NSMutableArray *array = [NSMutableArray array]; for (size_t i = 0; i < objectCount; ++i) {
+		[array addObject:obj];
+	    }
 	}
 });
 NSLog(@"-[NSMutableArray addObject:] : %llu ns", t);
@@ -339,9 +339,9 @@ double r = drand48();
 // Random Color
 srand48(time(0));
 UIColor *color = [UIColor colorWithRed:drand48()
-                                   green:drand48()
-                                    blue:drand48()
-                                  alpha:1.0f];
+				   green:drand48()
+				    blue:drand48()
+				  alpha:1.0f];
 ```
 
 ### # 3.3 Creating a Random String
@@ -370,9 +370,9 @@ NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:timeInterval];
 @property NSMutableDictionary *mutableDictionary;
 @property dispatch_queue_t queue;
 - (void)setObject:(id)object
-           forKey:(id)key{
+	   forKey:(id)key{
      dispatch_barrier_async(self.queue, ^{
-        self.mutableDictionary[key] = object;
+	self.mutableDictionary[key] = object;
     });
 }
 ```
@@ -459,10 +459,10 @@ NSArray *locations = @[@(0.0), @(1.0)]; NSTimeInterval duration = 1.0f;
 [UIView animateWithDuration:duration animations:^{
     [CATransaction begin];
     {
-        [CATransaction setAnimationDuration:duration];
-        [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-        [(CAGradientLayer *)self.layer setColors:colors];
-        [(CAGradientLayer *)self.layer setLocations:locations];
+	[CATransaction setAnimationDuration:duration];
+	[CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+	[(CAGradientLayer *)self.layer setColors:colors];
+	[(CAGradientLayer *)self.layer setLocations:locations];
     }
     [CATransaction commit];
 }];
@@ -476,7 +476,7 @@ NSArray *locations = @[@(0.0), @(1.0)]; NSTimeInterval duration = 1.0f;
 
     id <CAAction> action = [super actionForLayer:layer forKey:event];
     if ((!action || [(id)action isEqual:[NSNull null]]) && [event isEqualToString:@"colors"]) {
-        action = [CABasicAnimation animationWithKeyPath:event];
+	action = [CABasicAnimation animationWithKeyPath:event];
     }
     return action;
 
@@ -492,9 +492,9 @@ static UIImage * UIImageForSwatchOfColorWithSize(UIColor *color, CGSize size)
     UIImage *image = nil;
     CGRect rect = CGRectMake(0.0f, 0.0f, size.width, size.height);
     UIGraphicsBeginImageContext(rect.size); {
-        CGContextRef c = UIGraphicsGetCurrentContext();
-        CGContextSetFillColorWithColor(c, [color CGColor]); CGContextFillRect(c, rect);
-        image = UIGraphicsGetImageFromCurrentImageContext(); }
+	CGContextRef c = UIGraphicsGetCurrentContext();
+	CGContextSetFillColorWithColor(c, [color CGColor]); CGContextFillRect(c, rect);
+	image = UIGraphicsGetImageFromCurrentImageContext(); }
     UIGraphicsEndImageContext();
     return image;
 }
@@ -522,9 +522,9 @@ double scale = [[UIScreen mainScreen] scale];
 UIImage *snapshot = nil;
 UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, scale); {
     if ([self respondsToSelector:@selector(drawViewHierarchyInRect: afterScreenUpdates:)]) {
-          [self drawViewHierarchyInRect:view.bounds afterScreenUpdates:YES];
+	  [self drawViewHierarchyInRect:view.bounds afterScreenUpdates:YES];
     } else {
-          [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+	  [self.layer renderInContext:UIGraphicsGetCurrentContext()];
     }
     snapshot = UIGraphicsGetImageFromCurrentImageContext();
 }
@@ -546,8 +546,8 @@ UIGraphicsEndImageContext();
 //Removing Drop Shadow from UIWebView
 for (UIView *view in [[[webView subviews] objectAtIndex:0] subviews]) {
     if ([view isKindOfClass:[UIImageView class]] && view.frame.size.width == 1.0f) {
-              view.hidden = YES;
-        }
+	      view.hidden = YES;
+	}
 }
 ```
 
@@ -564,4 +564,3 @@ AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 ```
 
 [NSHipster Fake]: https://gumroad.com/l/the-nshipster-fake-book
-

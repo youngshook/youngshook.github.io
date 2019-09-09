@@ -56,4 +56,3 @@ _Than meets the eye.”_
 以上歌词是_Neil Young_的_Hey Hey My My_.
 
 曲如人生...
-

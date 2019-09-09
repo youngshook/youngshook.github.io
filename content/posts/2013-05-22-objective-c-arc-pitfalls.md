@@ -170,8 +170,8 @@ CFRelease(c);
 @implementation MyClass
 - (void)foo {
     self.job = ^{
-        [child work];
-        // will expand to [self->child work]
+	[child work];
+	// will expand to [self->child work]
     };
 }
 ```
@@ -183,11 +183,11 @@ CFRelease(c);
 - (void)foo {
     MyClass* __weak w_self = self;
     self.block = ^{
-        MyClass* s_self = w_self; // self 被强引用,但仅仅在这个作用域中.
-        if (s_self) {
-            [s_self->child work];
-            // do other stuffs
-        }
+	MyClass* s_self = w_self; // self 被强引用,但仅仅在这个作用域中.
+	if (s_self) {
+	    [s_self->child work];
+	    // do other stuffs
+	}
     };
 }
 ```
@@ -213,5 +213,3 @@ NSError* error = nil;
 [apple]: http://developer.apple.com/library/mac/#releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html
 [amattn]: https://twitter.com/amattn
 [best practices]: http://amattn.com/2011/12/07/arc_best_practices.html
-
-

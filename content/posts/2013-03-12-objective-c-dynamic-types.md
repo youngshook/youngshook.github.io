@@ -27,9 +27,9 @@ toc: false
 - (void)testObjectType:(id)obj
 {
     if ([obj isKindOfClass: [NSNumber class]]) {
-        // do something with number...
+	// do something with number...
     } else if ([obj isKindOfClass: [NSValue class]) {
-        // do something with values...
+	// do something with values...
     }
 }
 ```
@@ -143,8 +143,8 @@ NSValue * originValue = [NSValue valueWithBytes:&origin objCType:@encode(CGPoint
 if ([obj isKindOfClass:[NSValue class]]) {
     NSValue* value = (NSValue*) obj;
     if strcmp([value objCType], @encode(CGPoint)) == 0) {
-        CGPoint origin;
-        [value getValue:&origin];
+	CGPoint origin;
+	[value getValue:&origin];
     }
 }
 ```
@@ -186,5 +186,3 @@ if (CFGetTypeID((__bridge CFTypeRef)obj), == CGImageGetTypeID()) {
 [Core Foundation]: http://developer.apple.com/library/mac/#documentation/CoreFoundation/Conceptual/CFDesignConcepts/Articles/Inspecting.html
 [Objective-C ARC 下的陷阱和最佳实践]:http://youngshook.com/post/ObjectiveC-ARC-Pitfalls/
 [Objective-C 对象模型及应用]:http://blog.devtang.com/blog/2013/10/15/objective-c-object-model/
-
-

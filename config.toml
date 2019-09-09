@@ -17,7 +17,7 @@ googleAnalytics = "UA-146746882-1" # Google 统计 id
  	posts = "/:year/:month/:title/"
 
 [params]
-	mainSections = ["post"]
+	mainSections = ["posts"]
 	headTitle = "Ace's Life"
 	disqus = "YoungShook"
 	extraHead = ''

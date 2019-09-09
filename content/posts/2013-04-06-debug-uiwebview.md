@@ -56,4 +56,3 @@ OK, 仅仅通过一个私有 API 便可进行远程 Debug, 现在打开模拟器
 [NSProxy UIWebView]:http://blog.fenrir-inc.com/jp/2013/11/nsproxy.html
 [brainlock]:https://github.com/brainlock
 [ios-remote-inspector]: https://github.com/brainlock/ios-remote-inspector
-
