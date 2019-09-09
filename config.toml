@@ -14,7 +14,7 @@ googleAnalytics = "UA-146746882-1" # Google 统计 id
 	homepage = "https://blog.sker.me/"
 
 [Permalinks]
- 	posts = /:year/:month/:title/
+ 	posts = "/:year/:month/:title/"
 
 [params]
 	mainSections = ["post"]
