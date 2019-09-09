@@ -10,21 +10,21 @@ enableRobotsTXT = true # 支持 robots.txt
 googleAnalytics = "UA-146746882-1" # Google 统计 id
 
 [author]
-name = "Ace.li"
-homepage = "https://blog.sker.me/"
+	name = "Ace.li"
+	homepage = "https://blog.sker.me/"
 
 [Permalinks]
-posts = "/:year/:filename/"
+ 	posts: /:year/:month/:title/
 
 [params]
-mainSections = ["post"]
-headTitle = "Ace's Life"
-disqus = "YoungShook"
-extraHead = ''
+	mainSections = ["post"]
+	headTitle = "Ace's Life"
+	disqus = "YoungShook"
+	extraHead = ''
 
 [[params.socials]]
-name = "RSS"
-link = "/index.xml"
+	name = "RSS"
+	link = "/index.xml"
 
 [languages]
   [languages.cn]
