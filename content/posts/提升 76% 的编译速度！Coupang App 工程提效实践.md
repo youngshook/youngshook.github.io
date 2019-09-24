@@ -1,10 +1,22 @@
 ---
+layout: page
 title: 提升 76% 的编译速度！Coupang App 工程提效实践
 date: 2019-09-24T11:11:34
 draft: false
+comments: true
+categories: Muisc
 published: true
-tags: []
+toc: false
+categories: [
+    "Music"
+]
+
+tags: [
+    "music",
+    "rock"
+]
 ---
+
 
 <a name="OzlC8"></a>
 # 一.前言
