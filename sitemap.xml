@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://blog.sker.me/</loc>
+    <lastmod>2017-03-25T21:58:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/categories/</loc>
+    <lastmod>2017-03-25T21:58:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/tags/hack/</loc>
+    <lastmod>2017-03-25T21:58:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/posts/</loc>
+    <lastmod>2017-03-25T21:58:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/tags/</loc>
+    <lastmod>2017-03-25T21:58:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/categories/tech/</loc>
+    <lastmod>2017-03-25T21:58:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/tags/tech/</loc>
+    <lastmod>2017-03-25T21:58:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/posts/hack-unicom-hg8346r-modem/</loc>
+    <lastmod>2017-03-25T21:58:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/categories/life/</loc>
+    <lastmod>2016-12-29T20:21:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/tags/milestone/</loc>
+    <lastmod>2016-12-29T20:21:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/categories/milestone/</loc>
+    <lastmod>2016-12-29T20:21:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/posts/oh-my-2016/</loc>
+    <lastmod>2016-12-29T20:21:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/tags/summary/</loc>
+    <lastmod>2016-12-29T20:21:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/posts/oh-my-2015/</loc>
+    <lastmod>2015-12-29T21:11:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/posts/oh-my-2014/</loc>
+    <lastmod>2014-12-31T20:41:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/categories/ios/</loc>
+    <lastmod>2014-11-26T16:02:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/tags/objective-c/</loc>
+    <lastmod>2014-11-26T16:02:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/posts/objective-c-fake-code/</loc>
+    <lastmod>2014-11-26T16:02:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/tags/git/</loc>
+    <lastmod>2014-08-09T13:27:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/tags/tips/</loc>
+    <lastmod>2014-08-09T13:27:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/posts/tips-for-using-git-hook/</loc>
+    <lastmod>2014-08-09T13:27:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/posts/dynamic-properties/</loc>
+    <lastmod>2014-07-14T16:12:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/categories/music/</loc>
+    <lastmod>2014-06-26T00:08:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/tags/music/</loc>
+    <lastmod>2014-06-26T00:08:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/tags/rock/</loc>
+    <lastmod>2014-06-26T00:08:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/posts/yao-gun-wu-yong/</loc>
+    <lastmod>2014-06-26T00:08:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/posts/overlaying-ios-app/</loc>
+    <lastmod>2014-02-11T23:42:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/posts/oh-my-2013/</loc>
+    <lastmod>2013-12-31T21:04:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/posts/objective-c-arc-pitfalls/</loc>
+    <lastmod>2013-05-22T19:45:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/tags/webview/</loc>
+    <lastmod>2013-04-06T22:32:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/posts/debug-uiwebview/</loc>
+    <lastmod>2013-04-06T22:32:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/tags/ios/</loc>
+    <lastmod>2013-03-12T13:58:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.sker.me/posts/objective-c-dynamic-types/</loc>
+    <lastmod>2013-03-12T13:58:00+00:00</lastmod>
+  </url>
+  
+</urlset>

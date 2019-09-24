@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rock on Ace&#39;s Life</title>
+    <link>https://blog.sker.me/tags/rock/</link>
+    <description>Recent content in rock on Ace&#39;s Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 26 Jun 2014 00:08:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.sker.me/tags/rock/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>摇滚无用</title>
+      <link>https://blog.sker.me/posts/yao-gun-wu-yong/</link>
+      <pubDate>Thu, 26 Jun 2014 00:08:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/posts/yao-gun-wu-yong/</guid>
+      <description>当任何一支乐队再也不可能重现披头士的荣光, 当迷幻的呓语不能再撼动哪怕一张选票,当善于DIY的朋克们费尽气力揭竿而起夺来的控诉权和摆明立场的刺</description>
+    </item>
+    
+  </channel>
+</rss>

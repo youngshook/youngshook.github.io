@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Hugo 0.57.2" />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Ace.li" />
+  <meta property="og:url" content="https://blog.sker.me/posts/overlaying-ios-app/" />
+  <link rel="canonical" href="https://blog.sker.me/posts/overlaying-ios-app/" /><script type="application/ld+json">
+  {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "https:\/\/blog.sker.me\/"
+      },
+      "articleSection" : "posts",
+      "name" : "在iOS App 图标上绘制版本信息",
+      "headline" : "在iOS App 图标上绘制版本信息",
+      "description" : "作为一名 iOS Developer, 想必在日差工作中会频繁的提交 App 的测试版本给 QA 测试, 或者给产品提供演示版本,通常我们并不能直观的通过 App 来判断其版本, 例如我们分发了",
+      "inLanguage" : "en-US",
+      "author" : "Ace.li",
+      "creator" : "Ace.li",
+      "publisher": "Ace.li",
+      "accountablePerson" : "Ace.li",
+      "copyrightHolder" : "Ace.li",
+      "copyrightYear" : "2014",
+      "datePublished": "2014-02-11 23:42:00 \x2b0000 UTC",
+      "dateModified" : "2014-02-11 23:42:00 \x2b0000 UTC",
+      "url" : "https:\/\/blog.sker.me\/posts\/overlaying-ios-app\/",
+      "keywords" : [ "Objective-C","tech", ]
+  }
+</script>
+<title>在iOS App 图标上绘制版本信息 - Ace&#39;s Life</title>
+  <meta property="og:title" content="在iOS App 图标上绘制版本信息 - Ace&#39;s Life" />
+  <meta property="og:type" content="article" />
+  <meta name="description" content="作为一名 iOS Developer, 想必在日差工作中会频繁的提交 App 的测试版本给 QA 测试, 或者给产品提供演示版本,通常我们并不能直观的通过 App 来判断其版本, 例如我们分发了" />
+
+  <link rel="stylesheet" href="https://unpkg.com/flexboxgrid@6.3.1/dist/flexboxgrid.min.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/tomorrow.min.css" />
+  <link rel="stylesheet" href="/css/index.css">
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Ace&#39;s Life">
+  
+  <link href="https://fonts.googleapis.com/css?family=Arvo|Permanent+Marker" rel="stylesheet">
+  
+  <script>
+    
+
+    (function (undefined) { }).call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});
+  </script>
+
+  
+</head>
+
+<body>
+  <article class="post Chinese" id="article">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2 col-lg-6 col-lg-offset-3">
+        <div class="site-header">
+          
+<header>
+  <div class="signatures site-title">
+    <a href="/">Ace&#39;s Life</a>
+  </div>
+</header>
+<div class="row end-xs">
+  
+  
+</div>
+<div class="header-line"></div>
+
+        </div>
+        <header class="post-header">
+          <h1 class="post-title">在iOS App 图标上绘制版本信息</h1>
+          
+          <div class="row post-desc">
+            <div class="col-xs-6">
+              
+              <time class="post-date" datetime="2014-02-11 23:42:00 UTC">
+                11 Feb 2014
+              </time>
+              
+            </div>
+            <div class="col-xs-6">
+              
+              <div class="post-author">
+                <a target="_blank" href="https://blog.sker.me/">@Ace.li</a>
+              </div>
+              
+            </div>
+          </div>
+          
+        </header>
+
+        <div class="post-content markdown-body">
+          
+
+<p>作为一名 iOS Developer, 想必在日差工作中会频繁的提交 App 的测试版本给 QA 测试, 或者给产品提供演示版本,通常我们并不能直观的通过 App 来判断其版本, 例如我们分发了多个测试版本的话,这样会造成在一个测试设备上会出现多个相同图标的 App, 我们通常区别一个 App 不同版本, 主要通过 App Version 或 Git branch name 来区分不同测试分发版本, 那么在 App 测试版本的 Icon 上添加这些信息话,测试人员就会很容易分别不同版本 App, 即可方便的同时测多个 App 版本.
+<!-- more --></p>
+
+<h3 id="工欲善其事-必先利其器-我们需要哪些工具呢">工欲善其事, 必先利其器, 我们需要哪些工具呢?</h3>
+
+<h4 id="imagemagick-1"><a href="http://www.imagemagick.org/">ImageMagick</a></h4>
+
+<p>ImageMagick 是一个功能很强大的开源命令行图片处理程序, 主要用于图片的创建、编辑以及转换等工作.</p>
+
+<h4 id="ghostscript-2"><a href="http://www.ghostscript.com/">Ghostscript</a></h4>
+
+<p>Ghostscript 是一套建基于 Adobe、PostScript 及 PDF 的页面描述语言等而编译成的自由软件.这么高大上的东西对于我们来说可能杀鸡用牛刀了, 我们用它来美化我们绘制的文字信息.</p>
+
+<p>在 Mac 下使用 HomeBrew 即可快速安装.</p>
+
+<pre><code class="language-bash">
+brew install imagemagick
+brew install ghostscript
+
+</code></pre>
+
+<h3 id="可以在图标上绘制哪些版本信息呢">可以在图标上绘制哪些版本信息呢?</h3>
+
+<ul>
+<li>App Short Version</li>
+<li>App Build Version</li>
+<li>Git Branch Name</li>
+<li>Git Commit Hash</li>
+</ul>
+
+<p>这些信息可以简单通过下面 Shell 获取.</p>
+
+<pre><code class="language-bash">Version_Short=$(/usr/libexec/PlistBuddy -c &quot;Print CFBundleShortVersionString&quot; &quot;${APP}/Info.plist&quot;)
+Version_Build=$(/usr/libexec/PlistBuddy -c &quot;Print CFBundleVersion&quot; &quot;${APP}/Info.plist&quot;)
+Branch_Name=$(git rev-parse --abbrev-ref HEAD)
+Commit_Hash=$(git rev-parse --short HEAD)
+
+</code></pre>
+
+<h3 id="绘制版本信息到图标上">绘制版本信息到图标上</h3>
+
+<p>我们使用之前安装的 ImageMagick 软件, 用 Convert 命令在图标的正下方绘制出长 144, 高 40 的矩形,然后使用设定的字体绘制文字到矩形中即可.</p>
+
+<pre><code class="language-bash">convert -background '#0008' -fill white -gravity center -size ${width}x40 \
+    caption:&quot;${Version_Short} ${Branch_Name} ${Commit_Hash}&quot; \
+    ${base_file} +swap -gravity south -composite  &quot;${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/${target_file}&quot;
+</code></pre>
+
+<p>当然你可以随意定制显示区域和字体颜色等, 但从实践上来看使用白色的字体最好看.</p>
+
+<h3 id="整合到-xcode-工程中-实现自动化">整合到 Xcode 工程中, 实现自动化</h3>
+
+<ol>
+<li>为了防止脚本生成的 Icon 文件出现命名冲突, 我们需要把工程中的所有 Icon 图标添加后缀 &ldquo;_base&rdquo;</li>
+<li>添加 Run Script 到项目 Target 的 Build Phase 中. 可参照<a href="http://www.runscriptbuildphase.com/">这里</a></li>
+
+<li><p>添加如下脚本到 Run Script 中</p>
+
+<pre><code class="language-bash">Version_Short=$(/usr/libexec/PlistBuddy -c &quot;Print CFBundleShortVersionString&quot; &quot;${APP}/Info.plist&quot;)
+Branch_Name=$(git rev-parse --abbrev-ref HEAD)
+Commit_Hash=$(git rev-parse --short HEAD)
+
+function processIcon() {
+export PATH=$PATH:/usr/local/bin
+base_file=$1
+base_path=`find ${SRCROOT} -name $base_file`
+
+if [[ ! -f ${base_path} || -z ${base_path} ]]; then
+	return;
+fi
+
+target_file=`echo $base_file | sed &quot;s/_base//&quot;`
+target_path=&quot;${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/${target_file}&quot;
+
+if [ $CONFIGURATION = &quot;Release&quot; ]; then
+cp ${base_file} $target_path
+return
+fi
+
+width=`identify -format %w ${base_path}`
+
+convert -background '#0008' -fill white -gravity center -size ${width}x40\
+caption:&quot;${Version_Short} ${Branch_Name} ${Commit_Hash}&quot;\
+${base_path} +swap -gravity south -composite ${target_path}
+}
+
+processIcon &quot;Icon_base.png&quot;
+processIcon &quot;Icon@2x_base.png&quot;
+processIcon &quot;Icon-72_base.png&quot;
+processIcon &quot;Icon-72@2x_base.png&quot;
+</code></pre></li>
+</ol>
+
+<h3 id="产生的新-icon-效果图">产生的新 Icon 效果图</h3>
+
+<p><img src="http://ww4.sinaimg.cn/large/7853084cjw1f7ayrods46j204704fq34.jpg" alt="Image" />{: .size-small}</p>
+
+<h3 id="或可直接下载完整-shell-代码">或可直接下载完整 Shell 代码</h3>
+
+<ol>
+<li><a href="https://gist.github.com/c0a12efcc06f6cbc616e">buildIconVersioning.sh</a>  仅在 Build App 时绘制图标, 添加脚本路径到 Scheme 的 Build 下 Pre-actions 的 Run Script 中即可.</li>
+<li><a href="https://gist.github.com/623aee69522f6d747ece">archiveIconVersioning.sh</a> 仅在 Archive 时绘制图标, 添加脚本路径到 Scheme 的 Archive 下 Post-actions 的 Run Script 中即可.</li>
+</ol>
+
+        </div>
+        
+
+        
+
+<div class="releated-content">
+  <h3>Related Posts</h3>
+  <ul>
+    
+    <li><a href="/posts/objective-c-arc-pitfalls/">Objective-C ARC 下的陷阱与最佳实践</a></li>
+    
+    <li><a href="/posts/objective-c-dynamic-types/">行走在 Objective-C 动态类型</a></li>
+    
+    <li><a href="/posts/debug-uiwebview/">换个姿势调试 UIWebView</a></li>
+    
+  </ul>
+</div>
+
+
+        
+        
+        <div style="height: 50px;"></div>
+        
+        <div class="post-comments">
+          <div id="disqus_thread"></div>
+<script>
+  window.addEventListener("load", () => {
+    (function() {
+      
+      var d = document,
+        s = d.createElement("script");
+      s.src = "https://YoungShook.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  });
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+
+        </div>
+        
+        
+
+        <div class="site-footer">
+  
+  <div class="site-footer-item">
+    <a href="/index.xml" target="_blank">RSS</a>
+  </div>
+  
+  
+</div>
+
+      </div>
+    </div>
+  </article>
+
+  <script src="/js/highlight.pack.js"></script>
+<script src="https://unpkg.com/quicklink@0.1.1/dist/quicklink.umd.js"></script>
+
+<script>
+  hljs.initHighlightingOnLoad();
+  
+  var posts = document.getElementById('posts-list');
+  posts && quicklink({
+    el: posts,
+    priority: true,
+  });
+</script>
+
+  
+
+</body>
+
+</html>

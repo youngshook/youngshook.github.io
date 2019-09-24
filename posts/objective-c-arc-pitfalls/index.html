@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Hugo 0.57.2" />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Ace.li" />
+  <meta property="og:url" content="https://blog.sker.me/posts/objective-c-arc-pitfalls/" />
+  <link rel="canonical" href="https://blog.sker.me/posts/objective-c-arc-pitfalls/" /><script type="application/ld+json">
+  {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "https:\/\/blog.sker.me\/"
+      },
+      "articleSection" : "posts",
+      "name" : "Objective-C ARC 下的陷阱与最佳实践",
+      "headline" : "Objective-C ARC 下的陷阱与最佳实践",
+      "description" : "Objective-C 是一个非常酷的编程语言 (尽管它和 C\x2b\x2b 一个年代出生). 它的流行不仅仅是因为 iOS 和 MacOS 平台,也是其在移动平台上强大的性能. 然而在日常开发过程中仍然要",
+      "inLanguage" : "en-US",
+      "author" : "Ace.li",
+      "creator" : "Ace.li",
+      "publisher": "Ace.li",
+      "accountablePerson" : "Ace.li",
+      "copyrightHolder" : "Ace.li",
+      "copyrightYear" : "2013",
+      "datePublished": "2013-05-22 19:45:00 \x2b0000 UTC",
+      "dateModified" : "2013-05-22 19:45:00 \x2b0000 UTC",
+      "url" : "https:\/\/blog.sker.me\/posts\/objective-c-arc-pitfalls\/",
+      "keywords" : [ "Objective-C","tech", ]
+  }
+</script>
+<title>Objective-C ARC 下的陷阱与最佳实践 - Ace&#39;s Life</title>
+  <meta property="og:title" content="Objective-C ARC 下的陷阱与最佳实践 - Ace&#39;s Life" />
+  <meta property="og:type" content="article" />
+  <meta name="description" content="Objective-C 是一个非常酷的编程语言 (尽管它和 C&#43;&#43; 一个年代出生). 它的流行不仅仅是因为 iOS 和 MacOS 平台,也是其在移动平台上强大的性能. 然而在日常开发过程中仍然要" />
+
+  <link rel="stylesheet" href="https://unpkg.com/flexboxgrid@6.3.1/dist/flexboxgrid.min.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/tomorrow.min.css" />
+  <link rel="stylesheet" href="/css/index.css">
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Ace&#39;s Life">
+  
+  <link href="https://fonts.googleapis.com/css?family=Arvo|Permanent+Marker" rel="stylesheet">
+  
+  <script>
+    
+
+    (function (undefined) { }).call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});
+  </script>
+
+  
+</head>
+
+<body>
+  <article class="post Chinese" id="article">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2 col-lg-6 col-lg-offset-3">
+        <div class="site-header">
+          
+<header>
+  <div class="signatures site-title">
+    <a href="/">Ace&#39;s Life</a>
+  </div>
+</header>
+<div class="row end-xs">
+  
+  
+</div>
+<div class="header-line"></div>
+
+        </div>
+        <header class="post-header">
+          <h1 class="post-title">Objective-C ARC 下的陷阱与最佳实践</h1>
+          
+          <div class="row post-desc">
+            <div class="col-xs-6">
+              
+              <time class="post-date" datetime="2013-05-22 19:45:00 UTC">
+                22 May 2013
+              </time>
+              
+            </div>
+            <div class="col-xs-6">
+              
+              <div class="post-author">
+                <a target="_blank" href="https://blog.sker.me/">@Ace.li</a>
+              </div>
+              
+            </div>
+          </div>
+          
+        </header>
+
+        <div class="post-content markdown-body">
+          
+
+<p>Objective-C 是一个非常酷的编程语言 (尽管它和 C++ 一个年代出生). 它的流行不仅仅是因为 iOS 和 MacOS 平台,也是其在移动平台上强大的性能. 然而在日常开发过程中仍然要面对这个古老语言的诸多坑, 例如面对 Objective-C 的内存管理时, 虽然有强大的 ARC, 并且 Xcode 已经有很智能的警告提示, 但当面对复杂的内存管理的时候,仍然会掉进坑中, 例如在 ARC 环境下进行 <code>Core Foundation</code> 和 <code>Foundation</code> 之间数据类型交换. 这种技术也叫做 <code>Toll-Free Bridging</code>, 看起来很高端的样子, 今天我们就来说说如何以轻盈的姿势避开这些坑.
+<!-- more --></p>
+
+<h2 id="arc-的最佳实践">ARC 的最佳实践</h2>
+
+<p>先说下在使用 ARC 时一些所有权修饰符用法, <a href="https://twitter.com/amattn">@amattn</a>大神写的这篇<a href="http://amattn.com/2011/12/07/arc_best_practices.html">ARC 最佳实践</a>.一篇关于 ARC 的最佳实践的文章, 下面是对部分的摘抄翻译.</p>
+
+<ul>
+<li><p>如果需要保留对象的实例变量应该使用 <code>strong</code>.</p>
+
+<pre><code class="language-objc">@property (nonatomic, strong) id childObject;
+</code></pre></li>
+
+<li><p>如果需要打破循环引用,应该使用 <code>weak</code>.</p>
+
+<pre><code class="language-objc">@property (nonatomic, weak) id delegate;
+@property (nonatomic, weak) NSTimer timer;
+</code></pre></li>
+
+<li><p>对于标量(非对象)的修饰使用 <code>assign</code></p>
+
+<pre><code class="language-objc">@property (nonatomic, assign) CGFloat width;
+@property (nonatomic, assign) CGFloat height;
+</code></pre></li>
+
+<li><p>对于不可变的变量应使用 <code>copy</code>, 例如 NSString 和 Block. 避免使用在可变容器(例如 <code>NSMutableArray</code>.),如果修饰可变容器, 请使用 <code>strong</code>.</p>
+
+<pre><code class="language-objc">@property (nonatomic, copy) NSString* name;
+@property (nonatomic, copy) NSArray* components;
+@property (nonatomic, copy) (void (^)(void)) job;
+@property (nonatomic, strong) NSMutableArray* badPatterns;
+</code></pre></li>
+
+<li><p>In dealloc</p>
+
+<ul>
+<li>remove observers</li>
+<li>unregister notifications</li>
+</ul></li>
+
+<li><p>IBOutlets 修饰的属性通常使用 <code>weak</code>, 除非是这个属性是在 nib 文件中是顶层的 File’s Owner 对象, 那么使用<code>strong</code>, 同时在使用完成后需要在
+<code>-(void)viewDidUnload</code> 中释放为 <code>nil</code>.</p></li>
+</ul>
+
+<h2 id="arc-所有权修饰符">ARC 所有权修饰符</h2>
+
+<ol>
+<li><code>__strong</code> 是默认修饰符. 表示对对象的<code>强引用</code>. 持有强引用的变量在超出其作用域时被废弃, 随着强引用的失效, 引用的对象会随之释放.</li>
+<li><code>__weak</code> 修饰符的变量 (即弱引用) 不持有对象, 所以在超出其变量作用域时, 对象即被释放, 并且并被赋值为 <code>nil</code>.</li>
+<li><code>__unsafe_unretained</code> 修饰符正如其名 unsafe 所示, 是不安全的所有权修饰符, 在所有权上类似 <code>__weak</code>,但是并不会在超出其变量作用域时被赋值为 <code>nil</code>.</li>
+<li><code>__autoreleasing</code> 用来修饰一个声明为 (id *)的函数的参数, 当函数返回值时被释放.</li>
+</ol>
+
+<p>需要注意的是ARC的所有权修饰符只能来修饰 <code>指针类型</code>, 也就是说你只能把所有权修饰符放在星号的右边.</p>
+
+<pre><code class="language-objc">MyClass * __weak w_self = self;    // 正确
+MyClass __weak * w_self = self;    // 错误! 会引起令人抓狂的Bug!
+__weak MyClass * w_self = self;    // 错误!
+
+__weak typeof(self) w_self = self;
+// 正确,类似
+// __weak (MyClass *) w_self = self;
+
+typeof(self) __weak w_self = self; // 正确
+</code></pre>
+
+<p>可能在互联网上能看到很多的错误使用 ARC 修饰符. Apple 给出的 ARC 修饰符<a href="http://developer.apple.com/library/mac/#releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html">范式</a>:</p>
+
+<blockquote>
+<p>You should decorate variables correctly. When using qualifiers in an object
+variable declaration, the correct format is:
+<code>ClassName * qualifier variableName;</code></p>
+</blockquote>
+
+<h2 id="arc-和-toll-free-bridging">ARC 和 Toll-free bridging</h2>
+
+<p>在 ARC 使用过程中, 最容易出错的地方就是 <code>Core Foundation</code> 和 <code>Foundation</code> 之间数据类型交换.
+按照下面这些规则使用, 我们就能容易的避免这些陷阱.</p>
+
+<ul>
+<li>Objective-C to CF, 需要 retain.</li>
+<li>CF to Objective-C, 需要 release.</li>
+<li>Core Foundation 下没有 autorelease, 所以你必须遵循 Core
+Foundation的命名规则:
+
+<ul>
+<li>如果对象返回自从 <code>Create</code> 或 <code>Copy</code> 方法名开头的函数, 你将会拥有这个对象, 并且需要手动 release 这个对象.</li>
+<li>如果方法名包含 <code>Get</code>, 你不拥有此对象, 因此你不需要 release 这个对象.</li>
+</ul></li>
+</ul>
+
+<p>有两种方法来保留一个 CF 对象: 使用类型转换 <code>(__bridge_retained)</code> 或者 C 方法 <code>CFBridgingRetain</code>,在Clang文档中推荐使用类型转换的方式, 我更喜欢后者, 因为更加便于阅读.</p>
+
+<pre><code class="language-objc">CFArrayRef arr = CFBridgingRetain( @[@&quot;abc&quot;, @&quot;def&quot;, @3.14] );
+// or CFArrayRef arr = (__bridge_retained CFArrayRef)@[...];
+// do stuffs..
+CFRelease(arr);
+</code></pre>
+
+<p>当你从包含 <code>Create</code> 或 <code>Copy</code> 方法名的 Core Foundation 方法中获取一个对象时, 应该使用 <code>(__bridge_transfer)</code> 或 <code>CFBridgingRelease</code> 来做转换.</p>
+
+<pre><code class="language-objc">- (void)logFirstNameOfPerson:(ABRecordRef)person {
+    NSString *name = (NSString *)CFBridgingRelease(ABRecordCopyValue(person, kABPersonFirstNameProperty));
+    NSLog(@&quot;Person's first name: %@&quot;, name);
+}
+</code></pre>
+
+<h2 id="arc-在-toll-free-bridging-中的陷阱">ARC 在 Toll-free bridging 中的陷阱</h2>
+
+<p>有时候我们会看到这样的代码:</p>
+
+<pre><code class="language-objc">- (CGColorRef)foo {
+    UIColor *color = [UIColor redColor];
+    return [color CGColor];
+}
+</code></pre>
+
+<p>当心, 这段代码可能随时引起程序崩溃, 因为我们不持有 UIColor, 它会在创建之后立即释放,从而所拥有的 CGColor 将被释放, 从而引发 Crash.
+下面有三种方式来修复这段代码:</p>
+
+<ul>
+<li><p>使用 <code>__autorelease</code> 类型修饰符. UIColor 将会在当前 RunLoop 结束时被释放.</p>
+
+<pre><code class="language-objc">- (CGColorRef)getFooColor {
+UIColor *__autoreleasing color = [UIColor redColor];
+return [color CGColor];
+}
+</code></pre></li>
+
+<li><p>使用类型转换为 Core Foundation 类型, 并改变对象持有者.</p>
+
+<pre><code class="language-objc">- (CGColorRef)fooColorCopy {
+UIColor* color = [UIColor redColor];
+CGColorRef c = CFRetain([color CGColor]);
+return c;
+}
+.....
+CGColorRef c = [obj fooColorCopy];
+// do stuffs
+CFRelease(c);
+</code></pre></li>
+
+<li><p>使用 self 拥有这个对象. 但是如果 self 被释放, 仍然会引起 Crash.</p>
+
+<pre><code class="language-objc">- (CGColorRef)getFooColor {
+CGColorRef c = self.myColor.CGColor;
+return c;
+}
+</code></pre></li>
+</ul>
+
+<h2 id="arc-在-block-中的陷阱">ARC 在 Block 中的陷阱</h2>
+
+<p>当你使用一个变量在 self 所持有的 Block 中时, 将会引起一个循环引用.</p>
+
+<pre><code class="language-objc">@interface MyClass {
+    id child;
+}
+@property (nonatomic, strong) (void(^)(void)) job;
+@end
+
+@implementation MyClass
+- (void)foo {
+    self.job = ^{
+	[child work];
+	// will expand to [self-&gt;child work]
+    };
+}
+</code></pre>
+
+<p>避免这种陷阱的一种方式是使用弱引用的 self. 并且在 Block 中强引用这个弱引用对象 self, 即形成所谓的<code>对外弱引用对内强引用</code>.
+对内再次强引用的原因是弱引用对象可能随时被释放, 我们必须保证这个对外弱引用对象在使用时是有效的.</p>
+
+<pre><code class="language-objc">- (void)foo {
+    MyClass* __weak w_self = self;
+    self.block = ^{
+	MyClass* s_self = w_self; // self 被强引用,但仅仅在这个作用域中.
+	if (s_self) {
+	    [s_self-&gt;child work];
+	    // do other stuffs
+	}
+    };
+}
+</code></pre>
+
+<h2 id="arc-在-nserror-中的陷阱">ARC 在 NSError 中的陷阱</h2>
+
+<p>如果你要实现一个 NSError 的方法, 请务必使用正确的所有权修饰符.</p>
+
+<pre><code class="language-objc">- (void)doStuffWithError:(NSError* __autoreleasing *)error; // 正确
+- (void)doStuffWithError:(__autoreleasing NSError **)error; // 错误!
+</code></pre>
+
+<p>事实上, 当你创建一个 NSError 对象时, 最好声明为 <code>__autoreleasing</code>.</p>
+
+<pre><code class="language-objc">NSError* __autoreleasing error = nil; // 正确
+__autoreleasing NSError* error = nil; // 错误
+NSError* error = nil;
+</code></pre>
+
+        </div>
+        
+
+        
+
+<div class="releated-content">
+  <h3>Related Posts</h3>
+  <ul>
+    
+    <li><a href="/posts/objective-c-dynamic-types/">行走在 Objective-C 动态类型</a></li>
+    
+    <li><a href="/posts/debug-uiwebview/">换个姿势调试 UIWebView</a></li>
+    
+  </ul>
+</div>
+
+
+        
+        
+        <div style="height: 50px;"></div>
+        
+        <div class="post-comments">
+          <div id="disqus_thread"></div>
+<script>
+  window.addEventListener("load", () => {
+    (function() {
+      
+      var d = document,
+        s = d.createElement("script");
+      s.src = "https://YoungShook.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  });
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+
+        </div>
+        
+        
+
+        <div class="site-footer">
+  
+  <div class="site-footer-item">
+    <a href="/index.xml" target="_blank">RSS</a>
+  </div>
+  
+  
+</div>
+
+      </div>
+    </div>
+  </article>
+
+  <script src="/js/highlight.pack.js"></script>
+<script src="https://unpkg.com/quicklink@0.1.1/dist/quicklink.umd.js"></script>
+
+<script>
+  hljs.initHighlightingOnLoad();
+  
+  var posts = document.getElementById('posts-list');
+  posts && quicklink({
+    el: posts,
+    priority: true,
+  });
+</script>
+
+  
+
+</body>
+
+</html>

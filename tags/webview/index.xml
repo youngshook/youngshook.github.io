@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>webview on Ace&#39;s Life</title>
+    <link>https://blog.sker.me/tags/webview/</link>
+    <description>Recent content in webview on Ace&#39;s Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 06 Apr 2013 22:32:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.sker.me/tags/webview/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>换个姿势调试 UIWebView</title>
+      <link>https://blog.sker.me/posts/debug-uiwebview/</link>
+      <pubDate>Sat, 06 Apr 2013 22:32:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/posts/debug-uiwebview/</guid>
+      <description>Hybrid App 开发 App 现在越来越流行, 尤其对于快速迭代开发来说, Hybrid App 是一个快速验证需求点的好方式,在 Hybrid App 过程中不可避免的要和 UIWebView 打交道, 调试 UIWebView 上的网页不像</description>
+    </item>
+    
+  </channel>
+</rss>

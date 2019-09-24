@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on Ace&#39;s Life</title>
+    <link>https://blog.sker.me/tags/git/</link>
+    <description>Recent content in Git on Ace&#39;s Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 09 Aug 2014 13:27:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.sker.me/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tips for using Git hook</title>
+      <link>https://blog.sker.me/posts/tips-for-using-git-hook/</link>
+      <pubDate>Sat, 09 Aug 2014 13:27:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/posts/tips-for-using-git-hook/</guid>
+      <description>前言 Git大法好, 前段时间帮助公司QA做客户端自动化测试搭建, 过程中实践了些Git Hook的实用方法,想想还是有必要记录下来. Git pre-commit hook: 悬崖勒马</description>
+    </item>
+    
+  </channel>
+</rss>

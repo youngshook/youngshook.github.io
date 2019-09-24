@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Hugo 0.57.2" />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Ace.li" />
+  <meta property="og:url" content="https://blog.sker.me/posts/debug-uiwebview/" />
+  <link rel="canonical" href="https://blog.sker.me/posts/debug-uiwebview/" /><script type="application/ld+json">
+  {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "https:\/\/blog.sker.me\/"
+      },
+      "articleSection" : "posts",
+      "name" : "换个姿势调试 UIWebView",
+      "headline" : "换个姿势调试 UIWebView",
+      "description" : "Hybrid App 开发 App 现在越来越流行, 尤其对于快速迭代开发来说, Hybrid App 是一个快速验证需求点的好方式,在 Hybrid App 过程中不可避免的要和 UIWebView 打交道, 调试 UIWebView 上的网页不像",
+      "inLanguage" : "en-US",
+      "author" : "Ace.li",
+      "creator" : "Ace.li",
+      "publisher": "Ace.li",
+      "accountablePerson" : "Ace.li",
+      "copyrightHolder" : "Ace.li",
+      "copyrightYear" : "2013",
+      "datePublished": "2013-04-06 22:32:00 \x2b0000 UTC",
+      "dateModified" : "2013-04-06 22:32:00 \x2b0000 UTC",
+      "url" : "https:\/\/blog.sker.me\/posts\/debug-uiwebview\/",
+      "keywords" : [ "webview","tech", ]
+  }
+</script>
+<title>换个姿势调试 UIWebView - Ace&#39;s Life</title>
+  <meta property="og:title" content="换个姿势调试 UIWebView - Ace&#39;s Life" />
+  <meta property="og:type" content="article" />
+  <meta name="description" content="Hybrid App 开发 App 现在越来越流行, 尤其对于快速迭代开发来说, Hybrid App 是一个快速验证需求点的好方式,在 Hybrid App 过程中不可避免的要和 UIWebView 打交道, 调试 UIWebView 上的网页不像" />
+
+  <link rel="stylesheet" href="https://unpkg.com/flexboxgrid@6.3.1/dist/flexboxgrid.min.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/tomorrow.min.css" />
+  <link rel="stylesheet" href="/css/index.css">
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Ace&#39;s Life">
+  
+  <link href="https://fonts.googleapis.com/css?family=Arvo|Permanent+Marker" rel="stylesheet">
+  
+  <script>
+    
+
+    (function (undefined) { }).call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});
+  </script>
+
+  
+</head>
+
+<body>
+  <article class="post Chinese" id="article">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2 col-lg-6 col-lg-offset-3">
+        <div class="site-header">
+          
+<header>
+  <div class="signatures site-title">
+    <a href="/">Ace&#39;s Life</a>
+  </div>
+</header>
+<div class="row end-xs">
+  
+  
+</div>
+<div class="header-line"></div>
+
+        </div>
+        <header class="post-header">
+          <h1 class="post-title">换个姿势调试 UIWebView</h1>
+          
+          <div class="row post-desc">
+            <div class="col-xs-6">
+              
+              <time class="post-date" datetime="2013-04-06 22:32:00 UTC">
+                06 Apr 2013
+              </time>
+              
+            </div>
+            <div class="col-xs-6">
+              
+              <div class="post-author">
+                <a target="_blank" href="https://blog.sker.me/">@Ace.li</a>
+              </div>
+              
+            </div>
+          </div>
+          
+        </header>
+
+        <div class="post-content markdown-body">
+          <p>Hybrid App 开发 App 现在越来越流行, 尤其对于快速迭代开发来说, Hybrid App 是一个快速验证需求点的好方式,在 Hybrid App 过程中不可避免的要和 UIWebView 打交道, 调试 <code>UIWebView</code> 上的网页不像桌面版的 Safari 或 Chrome 一样有强大的开发者工具, 在手机上调试 <code>UIWebView</code> 是一件痛苦的事情, 找了几种调试的方式, 对比下来发现还是麻烦, 不如换个姿势找找其他方式?</p>
+
+<p>当前有几种调试 UIWebView 的方式:</p>
+
+<p><strong>1.通过 <code>NSProxy</code> 来 Hook UIWebView 的事件.</strong></p>
+
+<p><strong>2.通过私有 API 来开启远程调试</strong></p>
+
+<p>第一种方式可能相对复杂不便于进行全局调试, 有兴趣的同学可以看看这篇文章 <a href="http://blog.fenrir-inc.com/jp/2013/11/nsproxy.html">NSProxy UIWebView</a> 我们就简单说下如何通过私有 API 来调试 <code>UIWebView</code> 的方法.
+<!-- more -->
+通过对 <code>WebKit.framework</code> 直接 <code>class-dump</code> 我们可以得到 <code>UIWebView</code> 的私有API.</p>
+
+<pre><code class="language-objc">@interface WebView (WebPrivate)
++ (void)_enableRemoteInspector;
+@end
+</code></pre>
+
+<p>通过方法名还是很容易看出来这是我们想要的私有 API<strong>(Available iOS5)</strong>, 那么通过 <code>+[WebView _enableRemoteInspector]</code> 我们来开启远程调试.</p>
+
+<pre><code class="language-objc">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+    [NSClassFromString(@&quot;WebView&quot;) _enableRemoteInspector];
+
+}
+</code></pre>
+
+<p>当然这个私有 API 不可能通过编译器的检查, 所以我们使用其他方式绕过编译器的检查, 通过 <code>performSelector:@selector()</code> 方法来绕过消息检查.</p>
+
+<pre><code class="language-objc">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+#if (TARGET_IPHONE_SIMULATOR)
+    [NSClassFromString(@&quot;WebView&quot;) performSelector:@selector(_enableRemoteInspector)];
+#endif
+
+}
+</code></pre>
+
+<p>OK, 仅仅通过一个私有 API 便可进行远程 Debug, 现在打开模拟器然后在 Safari 地址栏输入 <code>localhost:9999</code> 便可.</p>
+
+<p>不想折腾的同学还也可以看看 <a href="https://github.com/brainlock">brainlock</a> 的开源项目 <a href="https://github.com/brainlock/ios-remote-inspector">ios-remote-inspector</a>, 更多的思路永远不是坏事.</p>
+
+        </div>
+        
+
+        
+
+<div class="releated-content">
+  <h3>Related Posts</h3>
+  <ul>
+    
+    <li><a href="/posts/objective-c-dynamic-types/">行走在 Objective-C 动态类型</a></li>
+    
+  </ul>
+</div>
+
+
+        
+        
+        <div style="height: 50px;"></div>
+        
+        <div class="post-comments">
+          <div id="disqus_thread"></div>
+<script>
+  window.addEventListener("load", () => {
+    (function() {
+      
+      var d = document,
+        s = d.createElement("script");
+      s.src = "https://YoungShook.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  });
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+
+        </div>
+        
+        
+
+        <div class="site-footer">
+  
+  <div class="site-footer-item">
+    <a href="/index.xml" target="_blank">RSS</a>
+  </div>
+  
+  
+</div>
+
+      </div>
+    </div>
+  </article>
+
+  <script src="/js/highlight.pack.js"></script>
+<script src="https://unpkg.com/quicklink@0.1.1/dist/quicklink.umd.js"></script>
+
+<script>
+  hljs.initHighlightingOnLoad();
+  
+  var posts = document.getElementById('posts-list');
+  posts && quicklink({
+    el: posts,
+    priority: true,
+  });
+</script>
+
+  
+
+</body>
+
+</html>

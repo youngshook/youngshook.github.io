@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hack on Ace&#39;s Life</title>
+    <link>https://blog.sker.me/tags/hack/</link>
+    <description>Recent content in hack on Ace&#39;s Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 25 Mar 2017 21:58:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.sker.me/tags/hack/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>联通宽带光猫破解提权</title>
+      <link>https://blog.sker.me/posts/hack-unicom-hg8346r-modem/</link>
+      <pubDate>Sat, 25 Mar 2017 21:58:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/posts/hack-unicom-hg8346r-modem/</guid>
+      <description>最近把家里宽带从电信转为联通百兆光纤，然而联通安装的光猫是路由模式，直接造成家里的智能路由器 WAN 口无法直接得到外网 IP ，当然无直接外网 IP 问题也不</description>
+    </item>
+    
+  </channel>
+</rss>

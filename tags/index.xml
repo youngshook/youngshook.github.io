@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Ace&#39;s Life</title>
+    <link>https://blog.sker.me/tags/</link>
+    <description>Recent content in Tags on Ace&#39;s Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 25 Mar 2017 21:58:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.sker.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>hack</title>
+      <link>https://blog.sker.me/tags/hack/</link>
+      <pubDate>Sat, 25 Mar 2017 21:58:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/tags/hack/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tech</title>
+      <link>https://blog.sker.me/tags/tech/</link>
+      <pubDate>Sat, 25 Mar 2017 21:58:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/tags/tech/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Milestone</title>
+      <link>https://blog.sker.me/tags/milestone/</link>
+      <pubDate>Thu, 29 Dec 2016 20:21:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/tags/milestone/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>summary</title>
+      <link>https://blog.sker.me/tags/summary/</link>
+      <pubDate>Thu, 29 Dec 2016 20:21:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/tags/summary/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Objective-C</title>
+      <link>https://blog.sker.me/tags/objective-c/</link>
+      <pubDate>Wed, 26 Nov 2014 16:02:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/tags/objective-c/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Git</title>
+      <link>https://blog.sker.me/tags/git/</link>
+      <pubDate>Sat, 09 Aug 2014 13:27:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/tags/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tips</title>
+      <link>https://blog.sker.me/tags/tips/</link>
+      <pubDate>Sat, 09 Aug 2014 13:27:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/tags/tips/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>music</title>
+      <link>https://blog.sker.me/tags/music/</link>
+      <pubDate>Thu, 26 Jun 2014 00:08:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/tags/music/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rock</title>
+      <link>https://blog.sker.me/tags/rock/</link>
+      <pubDate>Thu, 26 Jun 2014 00:08:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/tags/rock/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>webview</title>
+      <link>https://blog.sker.me/tags/webview/</link>
+      <pubDate>Sat, 06 Apr 2013 22:32:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/tags/webview/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>iOS</title>
+      <link>https://blog.sker.me/tags/ios/</link>
+      <pubDate>Tue, 12 Mar 2013 13:58:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/tags/ios/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

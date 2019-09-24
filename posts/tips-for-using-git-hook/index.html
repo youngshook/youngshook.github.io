@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Hugo 0.57.2" />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Ace.li" />
+  <meta property="og:url" content="https://blog.sker.me/posts/tips-for-using-git-hook/" />
+  <link rel="canonical" href="https://blog.sker.me/posts/tips-for-using-git-hook/" /><script type="application/ld+json">
+  {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "https:\/\/blog.sker.me\/"
+      },
+      "articleSection" : "posts",
+      "name" : "Tips for using Git hook",
+      "headline" : "Tips for using Git hook",
+      "description" : "前言 Git大法好, 前段时间帮助公司QA做客户端自动化测试搭建, 过程中实践了些Git Hook的实用方法,想想还是有必要记录下来. Git pre-commit hook: 悬崖勒马",
+      "inLanguage" : "en-US",
+      "author" : "Ace.li",
+      "creator" : "Ace.li",
+      "publisher": "Ace.li",
+      "accountablePerson" : "Ace.li",
+      "copyrightHolder" : "Ace.li",
+      "copyrightYear" : "2014",
+      "datePublished": "2014-08-09 13:27:00 \x2b0000 UTC",
+      "dateModified" : "2014-08-09 13:27:00 \x2b0000 UTC",
+      "url" : "https:\/\/blog.sker.me\/posts\/tips-for-using-git-hook\/",
+      "keywords" : [ "Git","tech","tips", ]
+  }
+</script>
+<title>Tips for using Git hook - Ace&#39;s Life</title>
+  <meta property="og:title" content="Tips for using Git hook - Ace&#39;s Life" />
+  <meta property="og:type" content="article" />
+  <meta name="description" content="前言 Git大法好, 前段时间帮助公司QA做客户端自动化测试搭建, 过程中实践了些Git Hook的实用方法,想想还是有必要记录下来. Git pre-commit hook: 悬崖勒马" />
+
+  <link rel="stylesheet" href="https://unpkg.com/flexboxgrid@6.3.1/dist/flexboxgrid.min.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/tomorrow.min.css" />
+  <link rel="stylesheet" href="/css/index.css">
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Ace&#39;s Life">
+  
+  <link href="https://fonts.googleapis.com/css?family=Arvo|Permanent+Marker" rel="stylesheet">
+  
+  <script>
+    
+
+    (function (undefined) { }).call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});
+  </script>
+
+  
+</head>
+
+<body>
+  <article class="post Chinese" id="article">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2 col-lg-6 col-lg-offset-3">
+        <div class="site-header">
+          
+<header>
+  <div class="signatures site-title">
+    <a href="/">Ace&#39;s Life</a>
+  </div>
+</header>
+<div class="row end-xs">
+  
+  
+</div>
+<div class="header-line"></div>
+
+        </div>
+        <header class="post-header">
+          <h1 class="post-title">Tips for using Git hook</h1>
+          
+          <div class="row post-desc">
+            <div class="col-xs-6">
+              
+              <time class="post-date" datetime="2014-08-09 13:27:00 UTC">
+                09 Aug 2014
+              </time>
+              
+            </div>
+            <div class="col-xs-6">
+              
+              <div class="post-author">
+                <a target="_blank" href="https://blog.sker.me/">@Ace.li</a>
+              </div>
+              
+            </div>
+          </div>
+          
+        </header>
+
+        <div class="post-content markdown-body">
+          
+
+<h2 id="前言">前言</h2>
+
+<p>Git大法好, 前段时间帮助公司QA做客户端自动化测试搭建, 过程中实践了些Git Hook的实用方法,想想还是有必要记录下来.</p>
+
+<!-- more -->
+
+<h2 id="git-pre-commit-hook-悬崖勒马-提交前做好测试"><strong>Git pre-commit hook</strong>: 悬崖勒马, 提交前做好测试.</h2>
+
+<h3 id="前期准备">前期准备</h3>
+
+<p>首先创建 hook script (<code>pre-commit.sh</code>) 在当前工程根目录下, 当然也可以放在自命名的文件夹中,不过推荐放在项目根目录下面, 保证所有的开发人员能够明显的知道这个文件的存在.
+然后对这个文件做软连接, 方便后续不同的开发人员在提交代码前运行同一套测试并保持脚本的同步更新.</p>
+
+<pre><code class="language-bash">ln -s ../../pre-commit.sh .git/hooks/pre-commit
+</code></pre>
+
+<p>首先我们要确保 <code>git commit</code> 前项目代码是不是经过测试的, 通过 <code>git stash</code> 来暂存我们的工作区和暂存区内容,经过 Test 之后再进行恢复.</p>
+
+<pre><code class="language-bash"># pre-commit.sh
+git stash -q --keep-index
+
+# Test prospective commit
+...
+
+git stash pop -q
+</code></pre>
+
+<h3 id="每次提交前运行项目的测试脚本-保证项目处于可用性状态">每次提交前运行项目的测试脚本, 保证项目处于可用性状态.</h3>
+
+<p>当然最好把测试脚本写在单独一个脚本文件中 (<code>tests.sh</code>), 并通过输入输出参数来反馈当前测试结果. 例如这样一个 <code>Django</code> 工程的测试脚本:</p>
+
+<pre><code class="language-bash"># tests.sh
+./manage.py test --settings=settings_test -v 2
+</code></pre>
+
+<p>那么最终的基本 <code>pre-commit</code> 文件可能是这个样子:</p>
+
+<pre><code class="language-bash"># pre-commit.sh
+git stash -q --keep-index
+./tests.sh
+test_result=$?
+git stash pop -q
+[ $test_result -ne 0 ] &amp;&amp; exit 1
+exit 0
+</code></pre>
+
+<h3 id="如何在-commit-时手动阻止-pre-commit-的执行">如何在 Commit 时手动阻止 pre-commit 的执行?</h3>
+
+<p>Git大法好, 在 <code>git commit</code> 的时候添加 <code>--no-verify</code> 参数即可阻止 <code>pre-commit</code> 的执行.</p>
+
+<p>当然为了偷懒, 可以写个 <code>aliases</code>.</p>
+
+<pre><code class="language-bash"># ~/.bash_aliases
+alias gc='git commit'
+alias gcv='git commit --no-verify'
+</code></pre>
+
+<h2 id="create-a-global-git-commit-hook-恶毒的在每个新建仓库中添加通用-hook"><strong>Create a global git commit hook</strong>: 恶毒的在每个新建仓库中添加通用 hook.</h2>
+
+<p>人类懒惰的本性和不满足的本性是趋势科技发展的源泉&hellip;</p>
+
+<ol>
+<li><p>首先配置 <code>git templates</code> :</p>
+
+<pre><code class="language-bash">git config --global init.templatedir '~/.git-templates'
+</code></pre></li>
+</ol>
+
+<p>通过配置 <code>git templates</code>, 在每次 <code>git init</code> 创建仓库的时候会把 <code>~/.git-templates</code> 下的文件拷贝到 <code>.git/</code> 目录下面.</p>
+
+<ol>
+<li><p>创建一个 hooks 文件夹:</p>
+
+<pre><code class="language-bash">mkdir -p ~/.git-templates/hooks
+</code></pre></li>
+
+<li><p>配置全局 hook 模板:
+例如当前在 <code>~/.git-templates/hooks</code> 下面有个 <code>post-commit</code> hook 文件,可能是这样:</p>
+
+<pre><code class="language-bash">#!/bin/sh
+# Copy last commit hash to clipboard on commit
+git log -1 --format=format:%h | pbcopy
+# Add other post-commit hooks
+</code></pre></li>
+
+<li><p>最后确保 hook 文件有可执行的文件属性:</p>
+
+<pre><code class="language-bash">chmod a+x ~/.git-templates/hooks/post-commit
+</code></pre></li>
+
+<li><p>在已存在的 repo 中使用全局 hook 仅仅重新 <code>git init</code> 即可.</p></li>
+</ol>
+
+<p>(Note: 如果当前 git repo 中已经存在一个同名的 hook 时, 默认是不会使用全局 hook 做覆盖的.)</p>
+
+        </div>
+        
+
+        
+
+<div class="releated-content">
+  <h3>Related Posts</h3>
+  <ul>
+    
+    <li><a href="/posts/dynamic-properties/">用 Runtime 动态增加 Category 的属性</a></li>
+    
+    <li><a href="/posts/overlaying-ios-app/">在iOS App 图标上绘制版本信息</a></li>
+    
+    <li><a href="/posts/objective-c-arc-pitfalls/">Objective-C ARC 下的陷阱与最佳实践</a></li>
+    
+  </ul>
+</div>
+
+
+        
+        
+        <div style="height: 50px;"></div>
+        
+        <div class="post-comments">
+          <div id="disqus_thread"></div>
+<script>
+  window.addEventListener("load", () => {
+    (function() {
+      
+      var d = document,
+        s = d.createElement("script");
+      s.src = "https://YoungShook.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  });
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+
+        </div>
+        
+        
+
+        <div class="site-footer">
+  
+  <div class="site-footer-item">
+    <a href="/index.xml" target="_blank">RSS</a>
+  </div>
+  
+  
+</div>
+
+      </div>
+    </div>
+  </article>
+
+  <script src="/js/highlight.pack.js"></script>
+<script src="https://unpkg.com/quicklink@0.1.1/dist/quicklink.umd.js"></script>
+
+<script>
+  hljs.initHighlightingOnLoad();
+  
+  var posts = document.getElementById('posts-list');
+  posts && quicklink({
+    el: posts,
+    priority: true,
+  });
+</script>
+
+  
+
+</body>
+
+</html>

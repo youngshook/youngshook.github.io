@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Hugo 0.57.2" />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Ace.li" />
+  <meta property="og:url" content="https://blog.sker.me/posts/objective-c-fake-code/" />
+  <link rel="canonical" href="https://blog.sker.me/posts/objective-c-fake-code/" /><script type="application/ld+json">
+  {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "https:\/\/blog.sker.me\/"
+      },
+      "articleSection" : "posts",
+      "name" : "Objective-C Fake Code",
+      "headline" : "Objective-C Fake Code",
+      "description" : "Swift 诞生, 意味着 Objective-C 语言终究会推出历史舞台. 今天打开邮件发现, 收到 NSHipster 社区对The NSHipster Fake Book 这本书的更新邮件, 整本书没多少页, 主要记录了些在开发过程中",
+      "inLanguage" : "en-US",
+      "author" : "Ace.li",
+      "creator" : "Ace.li",
+      "publisher": "Ace.li",
+      "accountablePerson" : "Ace.li",
+      "copyrightHolder" : "Ace.li",
+      "copyrightYear" : "2014",
+      "datePublished": "2014-11-26 16:02:00 \x2b0000 UTC",
+      "dateModified" : "2014-11-26 16:02:00 \x2b0000 UTC",
+      "url" : "https:\/\/blog.sker.me\/posts\/objective-c-fake-code\/",
+      "keywords" : [ "Objective-C","tech", ]
+  }
+</script>
+<title>Objective-C Fake Code - Ace&#39;s Life</title>
+  <meta property="og:title" content="Objective-C Fake Code - Ace&#39;s Life" />
+  <meta property="og:type" content="article" />
+  <meta name="description" content="Swift 诞生, 意味着 Objective-C 语言终究会推出历史舞台. 今天打开邮件发现, 收到 NSHipster 社区对The NSHipster Fake Book 这本书的更新邮件, 整本书没多少页, 主要记录了些在开发过程中" />
+
+  <link rel="stylesheet" href="https://unpkg.com/flexboxgrid@6.3.1/dist/flexboxgrid.min.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/tomorrow.min.css" />
+  <link rel="stylesheet" href="/css/index.css">
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Ace&#39;s Life">
+  
+  <link href="https://fonts.googleapis.com/css?family=Arvo|Permanent+Marker" rel="stylesheet">
+  
+  <script>
+    
+
+    (function (undefined) { }).call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});
+  </script>
+
+  
+</head>
+
+<body>
+  <article class="post Chinese" id="article">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2 col-lg-6 col-lg-offset-3">
+        <div class="site-header">
+          
+<header>
+  <div class="signatures site-title">
+    <a href="/">Ace&#39;s Life</a>
+  </div>
+</header>
+<div class="row end-xs">
+  
+  
+</div>
+<div class="header-line"></div>
+
+        </div>
+        <header class="post-header">
+          <h1 class="post-title">Objective-C Fake Code</h1>
+          
+          <div class="row post-desc">
+            <div class="col-xs-6">
+              
+              <time class="post-date" datetime="2014-11-26 16:02:00 UTC">
+                26 Nov 2014
+              </time>
+              
+            </div>
+            <div class="col-xs-6">
+              
+              <div class="post-author">
+                <a target="_blank" href="https://blog.sker.me/">@Ace.li</a>
+              </div>
+              
+            </div>
+          </div>
+          
+        </header>
+
+        <div class="post-content markdown-body">
+          
+
+<p>Swift 诞生, 意味着 Objective-C 语言终究会推出历史舞台.</p>
+
+<p>今天打开邮件发现, 收到 NSHipster 社区对<a href="https://gumroad.com/l/the-nshipster-fake-book">The NSHipster Fake Book </a>这本书的更新邮件, 整本书没多少页, 主要记录了些在开发过程中常用的代码片段, 用一点时间记录了些感觉不错的 Tricks, 方便今后的查阅.</p>
+
+<!-- more -->
+
+<h2 id="1-language-runtime"><strong>1. Language &amp; Runtime</strong></h2>
+
+<h3 id="1-1-creating-string-representations-for-enumerated-type"># 1.1 Creating String Representations for Enumerated Type</h3>
+
+<pre><code class="language-objc">NSString * const UITableViewCellStyleDescription[] = {
+	[UITableViewCellStyleDefault] = @&quot;Default&quot;,
+	[UITableViewCellStyleSubtitle] = @&quot;Subtitle&quot;,
+	[UITableViewCellStyleValue1] = @&quot;Value 1&quot;,
+	[UITableViewCellStyleValue2] = @&quot;Value 2&quot;
+};
+UITableViewCellStyle style = ...;
+NSString *description = UITableViewCellStyleDescription[style];
+</code></pre>
+
+<h3 id="1-2-adding-a-property-to-a-category"># 1.2 Adding a Property to a Category</h3>
+
+<pre><code class="language-objc">//NSObject+AssociatedObject.h
+@interface NSObject (AssociatedObject)
+@property (nonatomic, strong) id associatedObject; @end
+</code></pre>
+
+<pre><code class="language-objc">//NSObject+AssociatedObject.m
+@implementation NSObject (AssociatedObject)
+@dynamic associatedObject;
+- (void)setAssociatedObject:(id)object {
+	objc_setAssociatedObject(self, @selector(associatedObject), 	object,OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (id)associatedObject {
+	return objc_getAssociatedObject(self, @selector(associatedObject));
+}
+</code></pre>
+
+<h3 id="1-3-swizzling-a-method"># 1.3 Swizzling a Method</h3>
+
+<pre><code class="language-objc">//Swizzling a Method
+#import &lt;objc/runtime.h&gt;
+@implementation UIViewController (Tracking)
+
++ (void)load {
+	static dispatch_once_t onceToken; dispatch_once(&amp;onceToken, ^{
+		Class class = [self class];
+		// When swizzling a class method, use the following:
+		// Class class = object_getClass((id)self);
+		SEL originalSelector = @selector(viewWillAppear:);
+		SEL swizzledSelector = @selector(xxx_viewWillAppear:);
+		Method originalMethod = class_getInstanceMethod(class, originalSelector);
+		Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+		BOOL didAddMethod = class_addMethod(class,
+						    originalSelector, 	method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod));
+		if (didAddMethod) {
+		    class_replaceMethod(class,
+					swizzledSelector, method_getImplementation(originalMethod), 	method_getTypeEncoding(originalMethod));
+		}
+		else {
+		    method_exchangeImplementations(originalMethod, swizzledMethod);
+		}
+	});
+}
+
+#pragma mark - Method Swizzling
+- (void)xxx_viewWillAppear:(BOOL)animated {
+	[self xxx_viewWillAppear:animated]; NSLog(@&quot;viewWillAppear: %@&quot;, self);
+}
+</code></pre>
+
+<h3 id="1-4-determining-the-type-of-a-property"># 1.4 Determining the Type of a Property</h3>
+
+<pre><code class="language-objc">//Determining the Type of a Property
+const char *attributes = property_getAttributes(class_getProperty([self  class], sel_getName(@selector(property))));
+NSString *typeAttribute = [[[NSString stringWithUTF8String:attributes]  componentsSeparatedByString:@&quot;,&quot;] firstObject];
+const char *propertyType = [[typeAttribute substringFromIndex:1] UTF8String];
+if (strcmp(propertyType, @encode(float)) == 0) {
+	// float
+} else if (strcmp(propertyType, @encode(int)) == 0) {
+	// int
+}
+</code></pre>
+
+<h3 id="1-5-specifying-the-availability-of-a-method"># 1.5 Specifying the Availability of a Method</h3>
+
+<pre><code class="language-objc">//Specifying the Availability of a Method
+void foo() __attribute__((availability(macosx, introduced=10.4,
+					   deprecated=10.6,
+					   obsoleted=10.7)));
+</code></pre>
+
+<h3 id="1-6-hiding-a-class"># 1.6 Hiding a Class</h3>
+
+<pre><code class="language-objc">//Hiding a Class
+__attribute__((visibility(&quot;hidden&quot;))
+@interface HiddenClass : Superclass // ...
+@end
+</code></pre>
+
+<h3 id="1-7-hiding-a-method"># 1.7 Hiding a Method</h3>
+
+<pre><code class="language-objc">//Hiding a Method
+- (BOOL)respondsToSelector:(SEL)selector {
+    if (selector == @selector(methodToHide)) {
+	return NO; }
+    return [[self class] instancesRespondToSelector:selector];
+}
+</code></pre>
+
+<h3 id="1-8-ignoring-compiler-warnings"># 1.8 Ignoring Compiler Warnings</h3>
+
+<pre><code class="language-objc">//Ignoring Compiler Warnings
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored &quot;-Wgnu&quot; id object = object ?: [NSNull null];
+#pragma clang diagnostic pop
+</code></pre>
+
+<h3 id="1-9-determining-the-current-system-memory-usage"># 1.9 Determining the Current System Memory Usage</h3>
+
+<pre><code class="language-objc">//Determining the Current System Memory Usage
+#import &lt;mach/mach.h&gt;
+#import &lt;sys/sysctl.h&gt;
+vm_statistics_data_t vmStats;
+mach_msg_type_number_t infoCount = HOST_VM_INFO_COUNT;
+kern_return_t status = host_statistics(mach_host_self(), HOST_VM_INFO, (host_info_t)&amp;vmStats, &amp;infoCount);
+natural_t memoryUsage = 0; // in bytes
+if (status == KERN_SUCCESS) {
+    memoryUsage = vmStats.wire_count * 1024.0;
+}
+</code></pre>
+
+<h3 id="1-10-creating-variadic-method"># 1.10 Creating Variadic Method</h3>
+
+<pre><code class="language-objc">//Creating Variadic Method
+- (void)method:(id)object, ... NS_REQUIRES_NIL_TERMINATION { va_list args;
+    va_start(args, object);
+    while (object) {
+	// ...
+	object = va_arg(args, id);
+    }
+    va_end(args);
+}
+</code></pre>
+
+<h3 id="1-11-creating-a-variadic-function"># 1.11 Creating a Variadic Function</h3>
+
+<pre><code class="language-objc">//Creating a Variadic Function
+static double average(int count, ...) {
+    va_list args;
+    va_start(args, count);
+    int sum = 0;
+    for (int i = 0; i &lt; count; i++) {
+	sum += va_arg(args, int);
+    }
+    va_end(args);
+    return (double)sum / (double)count;
+}
+double avg = average(4, 2, 3, 4, 5);
+</code></pre>
+
+<h3 id="1-12-overloading-functions"># 1.12 Overloading Functions</h3>
+
+<pre><code class="language-objc">//Overloading Functions
+#include &lt;math.h&gt;
+__attribute__((overloadable)) CGFloat CGFloat_floor(double d) {
+    return (CGFloat)floor(d);
+}
+__attribute__((overloadable)) CGFloat CGFloat_floor(float f) {
+    return (CGFloat)floorf(f);
+}
+
+float __attribute__((overloadable)) tgsin(float x) {
+    return sinf(x);
+}
+double __attribute__((overloadable)) tgsin(double x) {
+    return sin(x);
+}
+long double __attribute__((overloadable)) tgsin(long double x) {
+    return sinl(x);
+}
+</code></pre>
+
+<h3 id="1-13-conditionally-compiling-for-ios-os-x-targets"># 1.13 Conditionally Compiling for iOS &amp; OS X Targets</h3>
+
+<pre><code class="language-objc">//Conditionally Compiling for iOS &amp; OS X Targets
+#import &lt;Availability.h&gt;
+id color = nil;
+#if defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
+color = [NSColor orangeColor];
+#elsif defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
+color = [UIColor purpleColor];
+#endif
+</code></pre>
+
+<h3 id="1-14-requiring-method-to-call-super"># 1.14 Requiring Method to call super</h3>
+
+<pre><code class="language-objc">//Requiring Method to call super
+- (void)method __attribute__((objc_requires_super));
+</code></pre>
+
+<h3 id="1-15-determining-the-caller-of-a-method"># 1.15 Determining the Caller of a Method</h3>
+
+<table>
+<thead>
+<tr>
+<th>Stack</th>
+<th align="center">Framework</th>
+<th align="right">Address</th>
+<th align="right">Class</th>
+<th align="right">Function</th>
+<th align="right">Line</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1</td>
+<td align="center">UIKit</td>
+<td align="right">0x004f</td>
+<td align="right">UIKit</td>
+<td align="right">Function</td>
+<td align="right">32</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code class="language-objc">//Determining the Caller of a Method
+NSString *callerSymbol = [NSThread callStackSymbols][1];
+NSCharacterSet *characterSet = [NSCharacterSet characterSetWithCharactersInString:@&quot; +,-.?[]&quot;];
+NSArray *components = [callerSymbol componentsSeparatedByCharactersInSet:characterSet];
+components = [components filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@&quot;self &lt;&gt; ’’&quot;]];
+NSString *stack = components[0];
+NSString *framework = components[1];
+NSString *address = components[2];
+NSString *classCaller = components[3];
+NSString *functionCaller = components[4];
+NSString *lineCaller = components[5];
+</code></pre>
+
+<h3 id="1-16-intentionally-crashing-the-current-process"># 1.16 Intentionally Crashing the Current Process</h3>
+
+<pre><code class="language-objc">//Intentionally Crashing the Current Process
+__builtin_trap();
+</code></pre>
+
+<hr />
+
+<h2 id="2-grand-central-dispatch"><strong>2. Grand Central Dispatch</strong></h2>
+
+<h3 id="2-1-benchmarking-the-execution-time-of-an-operation"># 2.1 Benchmarking the Execution Time of an operation</h3>
+
+<pre><code class="language-objc">//Benchmarking the Execution Time of an operation
+extern uint64_t dispatch_benchmark(size_t count, void (^block)(void))...----
+size_t const objectCount = 1000;
+uint64_t t = dispatch_benchmark(10000, ^{
+    @autoreleasepool { id obj = @42;
+	    NSMutableArray *array = [NSMutableArray array]; for (size_t i = 0; i &lt; objectCount; ++i) {
+		[array addObject:obj];
+	    }
+	}
+});
+NSLog(@&quot;-[NSMutableArray addObject:] : %llu ns&quot;, t);
+</code></pre>
+
+<h3 id="2-2-dispatching-a-timer"># 2.2 Dispatching a Timer</h3>
+
+<pre><code class="language-objc">//Dispatching a Timer
+dispatch_queue_t queue = dispatch_queue_create(NULL, DISPATCH_QUEUE_CONCURRENT);
+dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+int64_t delay = 30 * NSEC_PER_SEC;
+int64_t leeway = 5 * NSEC_PER_SEC;
+dispatch_source_set_timer(timer, DISPATCH_TIME_NOW, delay , leeway);
+dispatch_source_set_event_handler(timer, ^{
+    NSLog(@&quot;Ding Dong!&quot;);
+});
+dispatch_resume(timer);
+</code></pre>
+
+<h3 id="2-3-monitoring-local-file-changes"># 2.3 Monitoring Local File Changes</h3>
+
+<pre><code class="language-objc">//Monitoring Local File Changes
+NSURL *fileURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory
+       inDomains:NSUserDomainMask] firstObject];
+dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+int fileDescriptor = open([fileURL fileSystemRepresentation], O_EVTONLY);
+unsigned long mask = DISPATCH_VNODE_EXTEND | DISPATCH_VNODE_WRITE | DISPATCH_VNODE_DELETE;
+__block dispatch_source_t source = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, fileDescriptor,mask,queue);
+dispatch_source_set_event_handler(source, ^{
+dispatch_source_vnode_flags_t flags = dispatch_source_get_data(source);
+if (flags) {
+    dispatch_source_cancel(source);
+    dispatch_async(dispatch_get_main_queue(), ^{
+    // ...
+       });
+    }
+});
+dispatch_source_set_cancel_handler(source, ^{
+    close(fileDescriptor);
+});
+dispatch_resume(source);
+</code></pre>
+
+<hr />
+
+<h2 id="3-random"><strong>3. Random</strong></h2>
+
+<h3 id="3-1-creating-a-random-integer"># 3.1 Creating a Random Integer</h3>
+
+<pre><code class="language-objc">//Creating a Random Integer
+// Random int between 0 and N - 1
+NSUInteger r = arc4random_uniform(N);
+// Random int between 1 and N
+NSUInteger r = arc4random_uniform(N) + 1;
+</code></pre>
+
+<h3 id="3-2-creating-a-random-double"># 3.2 Creating a Random Double</h3>
+
+<pre><code class="language-objc">//Creating a Random Double
+srand48(time(0));
+double r = drand48();
+
+// Random Color
+srand48(time(0));
+UIColor *color = [UIColor colorWithRed:drand48()
+				   green:drand48()
+				    blue:drand48()
+				  alpha:1.0f];
+</code></pre>
+
+<h3 id="3-3-creating-a-random-string"># 3.3 Creating a Random String</h3>
+
+<pre><code class="language-objc">//Creating a Random String
+NSString *letter = [NSString stringWithFormat:@&quot;%c&quot;, arc4random_uniform(26) + ’a’];
+</code></pre>
+
+<h3 id="3-4-creating-a-random-date"># 3.4 Creating a Random Date</h3>
+
+<pre><code class="language-objc">//Creating a Random Date
+NSTimeInterval timeInterval = (NSTimeInterval)arc4random_uniform(pow(2.0, 32.0) - 1.0);
+NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:timeInterval];
+</code></pre>
+
+<hr />
+
+<h2 id="4-collections"><strong>4. Collections</strong></h2>
+
+<h3 id="4-1-accessing-mutable-dictionary-in-a-thread-safe-manner"># 4.1 Accessing Mutable Dictionary in a Thread-Safe Manner</h3>
+
+<pre><code class="language-objc">//Accessing Mutable Dictionary in a Thread-Safe Manner
+@property NSMutableDictionary *mutableDictionary;
+@property dispatch_queue_t queue;
+- (void)setObject:(id)object
+	   forKey:(id)key{
+     dispatch_barrier_async(self.queue, ^{
+	self.mutableDictionary[key] = object;
+    });
+}
+</code></pre>
+
+<h3 id="4-2-reversing-an-array"># 4.2 Reversing an Array</h3>
+
+<pre><code class="language-objc">//Reversing an Array
+NSArray *array = ...;
+NSArray *reversed = [[array reverseObjectEnumerator] allObjects];
+</code></pre>
+
+<h3 id="4-3-filtering-objects-in-array-by-class"># 4.3 Filtering Objects in Array by Class</h3>
+
+<pre><code class="language-objc">//Filtering Objects in Array by Class
+NSArray *mixedArray = @[@&quot;a&quot;, @&quot;b&quot;, @&quot;c&quot;, @(1), @(2), @(3)];
+NSPredicate *predicate = [NSPredicate predicateWithFormat:@&quot;self isKindOfClass: %@&quot;, [NSString class]];
+NSArray *letters = [mixedArray filteredArrayUsingPredicate:predicate];
+</code></pre>
+
+<h3 id="4-4-computing-the-sum-of-an-array"># 4.4 Computing the Sum of an Array</h3>
+
+<pre><code class="language-objc">//Computing the Sum of an Array
+NSArray *array = @[@1, @2, @3];
+NSNumber *sum = [array valueForKeyPath:@&quot;@sum.self&quot;];
+</code></pre>
+
+<h3 id="4-5-removing-duplicate-objects-from-an-array"># 4.5 Removing Duplicate Objects from an Array</h3>
+
+<pre><code class="language-objc">//Using KVC Collection Operator
+NSArray *array = @[@&quot;a&quot;, @&quot;b&quot;, @&quot;c&quot;, @&quot;a&quot;, @&quot;d&quot;];
+NSArray *uniqueArray = [array valueForKeyPath:@&quot;@distinctUnionOfObjects.self&quot;];
+</code></pre>
+
+<pre><code class="language-objc">//Using NSSet
+NSSet *set = [NSSet setWithArray:array];
+NSArray *uniqueArray = [set allObjects];
+</code></pre>
+
+<pre><code class="language-objc">//Using NSOrderedSet
+NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:array];
+NSArray *uniqueArray = [orderedSet array];
+</code></pre>
+
+<hr />
+
+<h2 id="5-cartography"><strong>5. Cartography</strong></h2>
+
+<h3 id="5-1-converting-degrees-to-radians"># 5.1 Converting Degrees to Radians</h3>
+
+<pre><code class="language-objc">//Converting Degrees to Radians
+double radians = degrees * M_PI / 180.0f;
+</code></pre>
+
+<h3 id="5-2-converting-radians-to-degrees"># 5.2 Converting Radians to Degrees</h3>
+
+<pre><code class="language-objc">//Converting Radians to Degrees
+double degrees = radians * 180.0f / M_PI;
+</code></pre>
+
+<h3 id="5-3-convert-radians-to-cllocationdirection"># 5.3 Convert Radians to CLLocationDirection</h3>
+
+<pre><code class="language-objc">CLLocationDirection direction = fmod(degrees, 360.0f) + 90.0f;
+</code></pre>
+
+<hr />
+
+<h2 id="6-graphics"><strong>6. Graphics</strong></h2>
+
+<h3 id="6-1-animating-a-cagradientlayer"># 6.1 Animating a CAGradientLayer</h3>
+
+<pre><code class="language-objc">//Animating a CAGradientLayer
+NSArray *colors = @[(id)[[UIColor redColor] CGColor], (id)[[UIColor orangeColor] CGColor]];
+NSArray *locations = @[@(0.0), @(1.0)]; NSTimeInterval duration = 1.0f;
+[UIView animateWithDuration:duration animations:^{
+    [CATransaction begin];
+    {
+	[CATransaction setAnimationDuration:duration];
+	[CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+	[(CAGradientLayer *)self.layer setColors:colors];
+	[(CAGradientLayer *)self.layer setLocations:locations];
+    }
+    [CATransaction commit];
+}];
+
++ (Class)layerClass {
+    return [CAGradientLayer class];
+}
+
+#pragma mark - CALayerDelegate
+- (id &lt;CAAction&gt;)actionForLayer:(CALayer *)layer forKey:(NSString *)event{
+
+    id &lt;CAAction&gt; action = [super actionForLayer:layer forKey:event];
+    if ((!action || [(id)action isEqual:[NSNull null]]) &amp;&amp; [event isEqualToString:@&quot;colors&quot;]) {
+	action = [CABasicAnimation animationWithKeyPath:event];
+    }
+    return action;
+
+}
+</code></pre>
+
+<h3 id="6-2-creating-an-image-for-a-swatch-of-color"># 6.2 Creating an Image for a Swatch of Color</h3>
+
+<pre><code class="language-objc">//Creating an Image for a Swatch of Color
+static UIImage * UIImageForSwatchOfColorWithSize(UIColor *color, CGSize size)
+{
+    UIImage *image = nil;
+    CGRect rect = CGRectMake(0.0f, 0.0f, size.width, size.height);
+    UIGraphicsBeginImageContext(rect.size); {
+	CGContextRef c = UIGraphicsGetCurrentContext();
+	CGContextSetFillColorWithColor(c, [color CGColor]); CGContextFillRect(c, rect);
+	image = UIGraphicsGetImageFromCurrentImageContext(); }
+    UIGraphicsEndImageContext();
+    return image;
+}
+</code></pre>
+
+<h3 id="6-3-getting-color-rgb-components"># 6.3 Getting Color RGB Components</h3>
+
+<pre><code class="language-objc">//Getting Color RGB Components
+UIColor *color = ...;
+CGFloat r, g, b, a;
+[color getRed:&amp;r green:&amp;g blue:&amp;b alpha:&amp;a];
+</code></pre>
+
+<hr />
+
+<h2 id="7-uikit"><strong>7. UIKit</strong></h2>
+
+<h3 id="7-1-creating-a-snapshot-of-a-view"># 7.1 Creating a Snapshot of a View</h3>
+
+<pre><code class="language-objc">//Creating a Snapshot of a View
+UIView *view = ...;
+double scale = [[UIScreen mainScreen] scale];
+UIImage *snapshot = nil;
+UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, scale); {
+    if ([self respondsToSelector:@selector(drawViewHierarchyInRect: afterScreenUpdates:)]) {
+	  [self drawViewHierarchyInRect:view.bounds afterScreenUpdates:YES];
+    } else {
+	  [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+    }
+    snapshot = UIGraphicsGetImageFromCurrentImageContext();
+}
+UIGraphicsEndImageContext();
+</code></pre>
+
+<h3 id="7-2-determining-if-uiviewcontroller-is-visible"># 7.2 Determining if UIViewController is Visible</h3>
+
+<pre><code class="language-objc">//Determining if UIViewController is Visible
+- (BOOL)isVisible {
+	return [self isViewLoaded] &amp;&amp; self.view.window;
+}
+</code></pre>
+
+<h3 id="7-3-removing-drop-shadow-from-uiwebview"># 7.3 Removing Drop Shadow from UIWebView</h3>
+
+<pre><code class="language-objc">//Removing Drop Shadow from UIWebView
+for (UIView *view in [[[webView subviews] objectAtIndex:0] subviews]) {
+    if ([view isKindOfClass:[UIImageView class]] &amp;&amp; view.frame.size.width == 1.0f) {
+	      view.hidden = YES;
+	}
+}
+</code></pre>
+
+<h3 id="7-4-making-a-device-vibrate"># 7.4 Making a Device Vibrate</h3>
+
+<pre><code class="language-objc">//Making a Device Vibrate
+@import AudioToolbox;
+// Plays an alert noise if vibration not supported on device
+AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+
+// No-op on devices that do not support vibration
+AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+</code></pre>
+
+        </div>
+        
+
+        
+
+<div class="releated-content">
+  <h3>Related Posts</h3>
+  <ul>
+    
+    <li><a href="/posts/dynamic-properties/">用 Runtime 动态增加 Category 的属性</a></li>
+    
+    <li><a href="/posts/overlaying-ios-app/">在iOS App 图标上绘制版本信息</a></li>
+    
+    <li><a href="/posts/objective-c-arc-pitfalls/">Objective-C ARC 下的陷阱与最佳实践</a></li>
+    
+  </ul>
+</div>
+
+
+        
+        
+        <div style="height: 50px;"></div>
+        
+        <div class="post-comments">
+          <div id="disqus_thread"></div>
+<script>
+  window.addEventListener("load", () => {
+    (function() {
+      
+      var d = document,
+        s = d.createElement("script");
+      s.src = "https://YoungShook.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  });
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+
+        </div>
+        
+        
+
+        <div class="site-footer">
+  
+  <div class="site-footer-item">
+    <a href="/index.xml" target="_blank">RSS</a>
+  </div>
+  
+  
+</div>
+
+      </div>
+    </div>
+  </article>
+
+  <script src="/js/highlight.pack.js"></script>
+<script src="https://unpkg.com/quicklink@0.1.1/dist/quicklink.umd.js"></script>
+
+<script>
+  hljs.initHighlightingOnLoad();
+  
+  var posts = document.getElementById('posts-list');
+  posts && quicklink({
+    el: posts,
+    priority: true,
+  });
+</script>
+
+  
+
+</body>
+
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Hugo 0.57.2" />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Ace.li" />
+  <meta property="og:url" content="https://blog.sker.me/posts/dynamic-properties/" />
+  <link rel="canonical" href="https://blog.sker.me/posts/dynamic-properties/" /><script type="application/ld+json">
+  {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "https:\/\/blog.sker.me\/"
+      },
+      "articleSection" : "posts",
+      "name" : "用 Runtime 动态增加 Category 的属性",
+      "headline" : "用 Runtime 动态增加 Category 的属性",
+      "description" : "前言 为什么要写个前言呢, 我想先谈下DRY (Don\x26rsquo;t Repeat Yourself), 在经历过诸多软件项目开发后,相信大家每到一个时期都会心想, \x26ldquo;尼玛,看来又要重构了!",
+      "inLanguage" : "en-US",
+      "author" : "Ace.li",
+      "creator" : "Ace.li",
+      "publisher": "Ace.li",
+      "accountablePerson" : "Ace.li",
+      "copyrightHolder" : "Ace.li",
+      "copyrightYear" : "2014",
+      "datePublished": "2014-07-14 16:12:00 \x2b0000 UTC",
+      "dateModified" : "2014-07-14 16:12:00 \x2b0000 UTC",
+      "url" : "https:\/\/blog.sker.me\/posts\/dynamic-properties\/",
+      "keywords" : [ "Objective-C","tech", ]
+  }
+</script>
+<title>用 Runtime 动态增加 Category 的属性 - Ace&#39;s Life</title>
+  <meta property="og:title" content="用 Runtime 动态增加 Category 的属性 - Ace&#39;s Life" />
+  <meta property="og:type" content="article" />
+  <meta name="description" content="前言 为什么要写个前言呢, 我想先谈下DRY (Don&rsquo;t Repeat Yourself), 在经历过诸多软件项目开发后,相信大家每到一个时期都会心想, &ldquo;尼玛,看来又要重构了!" />
+
+  <link rel="stylesheet" href="https://unpkg.com/flexboxgrid@6.3.1/dist/flexboxgrid.min.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/tomorrow.min.css" />
+  <link rel="stylesheet" href="/css/index.css">
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Ace&#39;s Life">
+  
+  <link href="https://fonts.googleapis.com/css?family=Arvo|Permanent+Marker" rel="stylesheet">
+  
+  <script>
+    
+
+    (function (undefined) { }).call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});
+  </script>
+
+  
+</head>
+
+<body>
+  <article class="post Chinese" id="article">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2 col-lg-6 col-lg-offset-3">
+        <div class="site-header">
+          
+<header>
+  <div class="signatures site-title">
+    <a href="/">Ace&#39;s Life</a>
+  </div>
+</header>
+<div class="row end-xs">
+  
+  
+</div>
+<div class="header-line"></div>
+
+        </div>
+        <header class="post-header">
+          <h1 class="post-title">用 Runtime 动态增加 Category 的属性</h1>
+          
+          <div class="row post-desc">
+            <div class="col-xs-6">
+              
+              <time class="post-date" datetime="2014-07-14 16:12:00 UTC">
+                14 Jul 2014
+              </time>
+              
+            </div>
+            <div class="col-xs-6">
+              
+              <div class="post-author">
+                <a target="_blank" href="https://blog.sker.me/">@Ace.li</a>
+              </div>
+              
+            </div>
+          </div>
+          
+        </header>
+
+        <div class="post-content markdown-body">
+          
+
+<h3 id="前言">前言</h3>
+
+<p>为什么要写个前言呢, 我想先谈下<strong><a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY</a> (Don&rsquo;t Repeat Yourself)</strong>, 在经历过诸多软件项目开发后,相信大家每到一个时期都会心想, &ldquo;尼玛,看来又要重构了!&rdquo;, 总是对自己开发的软件都有或多或少有不满意的地方,也许每次在新项目开始前, 心中都默念&rdquo;DRY! DRY! DRY!&ldquo;, 但收效甚微. 懂得 DRY 并不代表会正确使用 DRY 来设计和实现, 因为这需要我们大量的实践和总结, 才能练好 DRY 实践的内功,今天我们就来使用 DRY 思想来解决一个实际问题. 这是 DRY 思想在 <strong><a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">wikipedia</a></strong> 的解释.
+<!-- more --></p>
+
+<h3 id="问题">问题</h3>
+
+<p>在一个项目中每次重复写一段代码, 内心都有无数个草泥马在奔腾, 因此每当我发现有大量的重复的代码在一个项目中,我都有重构的冲动.
+举个栗子, 在开发过程中经常会通过添加 Category 给 Class 添加一组 Property, 这要感谢伟大的 Runtime 给我提供的 <code>objc_getAssociatedObject</code> 和 <code>objc_setAssociatedObject</code> 关联引用方法.但是我发现每次有同样需求的时候总要写一遍一样的 getters/setters 方法.</p>
+
+<h3 id="如何解决">如何解决</h3>
+
+<p>下面是在一个已存在的 Class 添加一组本身不存在的 Property 的 Category 例子.</p>
+
+<pre><code class="language-objc">@interface Superman (YSKit)
+@property (strong, nonatomic) UIColor *ys_ShirtColor;
+@property (strong, nonatomic) NSArray *ys_Weapons;
+@end
+</code></pre>
+
+<p>在什么时机动态的声明和实现我们要加的 Property 呢? 从解决问题目的出发, 会一个比较好的方案是在 Runtime 在执行的<code>+Load</code> 方法的时候.</p>
+
+<pre><code class="language-objc">@implementation Superman (YSKit)
+@dynamic ys_ShirtColor, ys_Weapons;
+
++ (void)load
+{
+  // 实现所有 Property 的 getters/setters 方法
+  [self implementDynamicPropertyAccessors];
+  // 或通过传入 Property 名字来实现其 Property 的 getters/setters 方法
+  [self implementDynamicPropertyAccessorsForPropertyName:@&quot;ys_Weapons&quot;];
+  // 或通过传入 Property 的正则表达式来实现其 Property 的 getters/setters 方法
+  [self implementDynamicPropertyAccessorsForPropertyMatching:@&quot;^ys_&quot;];
+}
+
+@end
+</code></pre>
+
+<p>这样做看起来不错, 很方便, 可以省去大量给 Category 添加属性的代码, 避免了重复的代码. <strong>Apple 的文档告诉我们原有 Class 的 <code>+Load</code> 方法执行完才会执行 Category 的 <code>+Load</code> 方法,而且有一个重要的点是 Category 的 <code>+Load</code> 方法不像其他方法一样, 并不会覆盖原有 Class 的 <code>+Load</code> 方法.</strong></p>
+
+<p>可能发现 <code>+ (void)implementDynamicPropertyAccessors</code> 方法便能满足我们动态实现 Property 的需求,但是如果我们 Class 有不希望生成 getters/setters 方法的 Property, 便可通过另外另外两个方法做过滤来满足我们需求.</p>
+
+<h3 id="如何实现">如何实现</h3>
+
+<p>所有的黑魔法都发生在 <code>+ (void)[NSObject implementDynamicPropertyAccessors]</code> 方法中,通过我们添加一个 NSObject 的 Category.</p>
+
+<p>这个类方法的实现很简单:</p>
+
+<pre><code class="language-objc">+ (void)implementDynamicPropertyAccessors
+{
+  [self enumeratePropertiesWithBlock:^(objc_property_t property){
+    [self implementAccessorsIfNecessaryForProperty:property];
+  }];
+}
+</code></pre>
+
+<p>这个方法仅仅是遍历 self 的所有属性, 并转发到我们定义的另一个方法中做处理.</p>
+
+<p><code>+ (void)implementAccessorsIfNecessaryForProperty:</code> 将会判断所有转发进来的属性是否被声明为 Dynamic, 如果是将会为其实现 getters/setters 方法.</p>
+
+<pre><code class="language-objc">+ (void)implementAccessorsIfNecessaryForProperty:(objc_property_t)property
+{
+  // 1.
+  NSArray *attributes = [self attributesOfProperty:property];
+  BOOL isDynamic = [attributes containsObject:@&quot;D&quot;];
+  if (!isDynamic) {
+    return;
+  }
+
+  // 2.
+  BOOL isObjectType = YES;
+  NSString *customGetterName;
+  NSString *customSetterName;
+
+  for (NSString *attribute in attributes) {
+    unichar firstChar = [attribute characterAtIndex:0];
+    switch (firstChar) {
+      case 'T': isObjectType = [attribute characterAtIndex:1] == '@'; break;
+      case 'G': customGetterName = [attribute substringFromIndex:1]; break;
+      case 'S': customSetterName = [attribute substringFromIndex:1]; break;
+      default: break;
+    }
+  }
+  if (!isObjectType) {
+    return;
+  }
+
+  // 3.
+  static const void *key = &amp;key;
+  key++;
+
+  // 4.
+  const char *name = property_getName(property);
+  [self implementGetterIfNecessaryForPropertyName:name customGetterName:customGetterName key:key];
+
+  BOOL isReadonly = [attributes containsObject:@&quot;R&quot;];
+  if (!isReadonly) {
+    [self implementSetterIfNecessaryForPropertyName:name customSetterName:customSetterName key:key attributes:attributes];
+  }
+}
+</code></pre>
+
+<ol>
+<li><strong>首先我们判断转发进来的属性是否被声明为 Dynamic, 如果不是则直接返回, 无需为其实现 getters/setters 方法.</strong></li>
+<li><strong>通过判断转发进来的属性的类型是否是 Objective-C 对象, 如果不是则直接返回.</strong></li>
+<li><strong>接下来创建一个静态对象, 用于接下来的关联引用的 Key. (为了防止指针地址相同,通过自增的方式来满足每次生成的Key指针都不同)</strong></li>
+<li><strong>最后我们通过属性的名称来增加 getters/setters 方法, 并且判断是否为 Readonly,如果是的话将仅仅生成 getters 方法.</strong></li>
+</ol>
+
+<p>下面是最终通过 Runtime 增加 getters/setters 的方法实现:</p>
+
+<p><strong>生成 <code>Getter</code> 方法:</strong></p>
+
+<p>通过使用传入的 propertyName 或自定义的 <code>Getter</code> 方法名, 来生成 <code>Getter</code> 的 SEL, 然后通过 Block 创建<code>Getter</code> 的方法实现, Block 返回通过 Runtime 的关联引用方法得到 property 的 <code>iVar</code> 变量.</p>
+
+<pre><code class="language-objc">+ (void)implementGetterIfNecessaryForPropertyName:(char const *)propertyName customGetterName:(NSString *)customGetterName key:(const void *)key
+{
+  SEL getter = NSSelectorFromString(customGetterName ?: [NSString stringWithFormat:@&quot;%s&quot;, propertyName]);
+  [self implementMethodIfNecessaryForSelector:getter parameterTypes:NULL block:^id(id _self) {
+    return objc_getAssociatedObject(self, key);
+  }];
+}
+</code></pre>
+
+<p><strong>生成 <code>Setter</code> 方法:</strong></p>
+
+<p>与 <code>Getter</code> 方法相比增加了判断 Property 的属性访问类型, 用来设置关联引用的策略.</p>
+
+<pre><code class="language-objc">+ (void)implementSetterIfNecessaryForPropertyName:(char const *)propertyName customSetterName:(NSString *)customSetterName key:(const void *)key attributes:(NSArray *)attributes
+{
+  BOOL isCopy = [attributes containsObject:@&quot;C&quot;];
+  BOOL isRetain = [attributes containsObject:@&quot;&amp;&quot;];
+  objc_AssociationPolicy associationPolicy = isCopy ? OBJC_ASSOCIATION_COPY : isRetain ? OBJC_ASSOCIATION_RETAIN : OBJC_ASSOCIATION_ASSIGN;
+  BOOL isNonatomic = [attributes containsObject:@&quot;N&quot;];
+  if (isNonatomic) {
+    objc_AssociationPolicy nonatomic = OBJC_ASSOCIATION_COPY_NONATOMIC - OBJC_ASSOCIATION_COPY;
+    associationPolicy += nonatomic;
+  }
+
+  SEL setter = NSSelectorFromString(customSetterName ?: [NSString stringWithFormat:@&quot;set%c%s:&quot;, toupper(*propertyName), propertyName + 1]);
+  [self implementMethodIfNecessaryForSelector:setter parameterTypes:&quot;@&quot; block:^(id _self, id var) {
+    objc_setAssociatedObject(self, key, var, associationPolicy);
+  }];
+}
+</code></pre>
+
+<p><strong>通过 Runtime 函数增加方法:</strong></p>
+
+<pre><code class="language-objc">+ (void)implementMethodIfNecessaryForSelector:(SEL)selector parameterTypes:(const char *)types block:(id)block
+{
+  BOOL instancesRespondToSelector = [self instancesRespondToSelector:selector];
+  if (!instancesRespondToSelector) {
+    IMP implementation = imp_implementationWithBlock(block);
+    class_addMethod(self, selector, implementation, types);
+  }
+}
+</code></pre>
+
+<p><strong>在 Category Class 执行 <code>+Load</code> 时为每个传进来的 Property 遍历和执行每个 Block:</strong></p>
+
+<pre><code class="language-objc">+ (void)enumeratePropertiesWithBlock:(void(^)(objc_property_t property))block
+{
+  NSParameterAssert(block);
+  uint count = 0;
+  objc_property_t *properties = class_copyPropertyList(self, &amp;count);
+  for (uint i = 0; i &lt; count; i++) {
+    objc_property_t property = properties[i];
+    block(property);
+  }
+  free(properties);
+}
+</code></pre>
+
+<p><strong>返回 Property 所有的 <code>attribute</code>. 用于做 Property 类型过滤:</strong></p>
+
+<pre><code class="language-objc">+ (NSArray *)attributesOfProperty:(objc_property_t)property
+{
+  return [[NSString stringWithCString:property_getAttributes(property) encoding:NSUTF8StringEncoding] componentsSeparatedByString:@&quot;,&quot;];
+}
+</code></pre>
+
+<p>下面是两个用于实现部分 Property 的动态访问, 与上面实现大体相同.</p>
+
+<pre><code class="language-objc">+ (void)implementDynamicPropertyAccessorsForPropertyName;
++ (void)implementDynamicPropertyAccessorsForPropertyMatching;
+</code></pre>
+
+<p><strong>可以在<a href="https://github.com/youngshook/YSDynamicProperties">Github</a>上找到本文 Category 的完整实现.</strong></p>
+
+        </div>
+        
+
+        
+
+<div class="releated-content">
+  <h3>Related Posts</h3>
+  <ul>
+    
+    <li><a href="/posts/overlaying-ios-app/">在iOS App 图标上绘制版本信息</a></li>
+    
+    <li><a href="/posts/objective-c-arc-pitfalls/">Objective-C ARC 下的陷阱与最佳实践</a></li>
+    
+    <li><a href="/posts/objective-c-dynamic-types/">行走在 Objective-C 动态类型</a></li>
+    
+  </ul>
+</div>
+
+
+        
+        
+        <div style="height: 50px;"></div>
+        
+        <div class="post-comments">
+          <div id="disqus_thread"></div>
+<script>
+  window.addEventListener("load", () => {
+    (function() {
+      
+      var d = document,
+        s = d.createElement("script");
+      s.src = "https://YoungShook.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  });
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+
+        </div>
+        
+        
+
+        <div class="site-footer">
+  
+  <div class="site-footer-item">
+    <a href="/index.xml" target="_blank">RSS</a>
+  </div>
+  
+  
+</div>
+
+      </div>
+    </div>
+  </article>
+
+  <script src="/js/highlight.pack.js"></script>
+<script src="https://unpkg.com/quicklink@0.1.1/dist/quicklink.umd.js"></script>
+
+<script>
+  hljs.initHighlightingOnLoad();
+  
+  var posts = document.getElementById('posts-list');
+  posts && quicklink({
+    el: posts,
+    priority: true,
+  });
+</script>
+
+  
+
+</body>
+
+</html>

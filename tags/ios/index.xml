@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>iOS on Ace&#39;s Life</title>
+    <link>https://blog.sker.me/tags/ios/</link>
+    <description>Recent content in iOS on Ace&#39;s Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 12 Mar 2013 13:58:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.sker.me/tags/ios/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>行走在 Objective-C 动态类型</title>
+      <link>https://blog.sker.me/posts/objective-c-dynamic-types/</link>
+      <pubDate>Tue, 12 Mar 2013 13:58:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/posts/objective-c-dynamic-types/</guid>
+      <description>用了这么长时间的 Objective-C 语言, 怎么来&amp;rdquo;肤浅&amp;rdquo;描述下什么是 Objective-C 呢?, Objective-C 是一个 C 语言的超集, 整个语言是在 C 语言的基础上添加了一层</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Hugo 0.57.2" />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Ace.li" />
+  <meta property="og:url" content="https://blog.sker.me/posts/hack-unicom-hg8346r-modem/" />
+  <link rel="canonical" href="https://blog.sker.me/posts/hack-unicom-hg8346r-modem/" /><script type="application/ld+json">
+  {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "https:\/\/blog.sker.me\/"
+      },
+      "articleSection" : "posts",
+      "name" : "联通宽带光猫破解提权",
+      "headline" : "联通宽带光猫破解提权",
+      "description" : "最近把家里宽带从电信转为联通百兆光纤，然而联通安装的光猫是路由模式，直接造成家里的智能路由器 WAN 口无法直接得到外网 IP ，当然无直接外网 IP 问题也不",
+      "inLanguage" : "en-US",
+      "author" : "Ace.li",
+      "creator" : "Ace.li",
+      "publisher": "Ace.li",
+      "accountablePerson" : "Ace.li",
+      "copyrightHolder" : "Ace.li",
+      "copyrightYear" : "2017",
+      "datePublished": "2017-03-25 21:58:00 \x2b0000 UTC",
+      "dateModified" : "2017-03-25 21:58:00 \x2b0000 UTC",
+      "url" : "https:\/\/blog.sker.me\/posts\/hack-unicom-hg8346r-modem\/",
+      "keywords" : [ "hack","tech", ]
+  }
+</script>
+<title>联通宽带光猫破解提权 - Ace&#39;s Life</title>
+  <meta property="og:title" content="联通宽带光猫破解提权 - Ace&#39;s Life" />
+  <meta property="og:type" content="article" />
+  <meta name="description" content="最近把家里宽带从电信转为联通百兆光纤，然而联通安装的光猫是路由模式，直接造成家里的智能路由器 WAN 口无法直接得到外网 IP ，当然无直接外网 IP 问题也不" />
+
+  <link rel="stylesheet" href="https://unpkg.com/flexboxgrid@6.3.1/dist/flexboxgrid.min.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/tomorrow.min.css" />
+  <link rel="stylesheet" href="/css/index.css">
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Ace&#39;s Life">
+  
+  <link href="https://fonts.googleapis.com/css?family=Arvo|Permanent+Marker" rel="stylesheet">
+  
+  <script>
+    
+
+    (function (undefined) { }).call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});
+  </script>
+
+  
+</head>
+
+<body>
+  <article class="post Chinese" id="article">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2 col-lg-6 col-lg-offset-3">
+        <div class="site-header">
+          
+<header>
+  <div class="signatures site-title">
+    <a href="/">Ace&#39;s Life</a>
+  </div>
+</header>
+<div class="row end-xs">
+  
+  
+</div>
+<div class="header-line"></div>
+
+        </div>
+        <header class="post-header">
+          <h1 class="post-title">联通宽带光猫破解提权</h1>
+          
+          <div class="row post-desc">
+            <div class="col-xs-6">
+              
+              <time class="post-date" datetime="2017-03-25 21:58:00 UTC">
+                25 Mar 2017
+              </time>
+              
+            </div>
+            <div class="col-xs-6">
+              
+              <div class="post-author">
+                <a target="_blank" href="https://blog.sker.me/">@Ace.li</a>
+              </div>
+              
+            </div>
+          </div>
+          
+        </header>
+
+        <div class="post-content markdown-body">
+          
+
+<p>最近把家里宽带从电信转为联通百兆光纤，然而联通安装的光猫是<strong>路由模式</strong>，直接造成家里的智能路由器 WAN 口无法直接得到外网 IP ，当然无直接外网 IP 问题也不大，也有方式可以搞定，但是总是感觉无法全局接管网络有点不爽，于是乎就对联通光猫下<strong>黑手</strong>了。</p>
+
+<h2 id="前期分析与准备">前期分析与准备</h2>
+
+<h4 id="路由模式">路由模式</h4>
+
+<p>估计由于 PPOE 拨号与配置过程对于小白用户过于繁杂，联通工作人员现在默认给安装光猫都设置为了<strong>路由模式</strong>，这样用户在光猫上插上网线就可以直接上网了，省去了用户自己配置拨号的过程，同时光猫也当做为了路由器功能，但是对于有多级路由的用户，可能这样的反而使之网络NAT层级过多，因此改变联通光猫的<strong>路由模式</strong>为<strong>桥接模式</strong>即可让光猫把拨号交接给次级路由处理，而光猫仅仅作为宽带桥接器。</p>
+
+<h4 id="用户提权">用户提权</h4>
+
+<p>默认联通路由器给宽带用户的账号的权限是比较低，无法更改光猫的路由模式，而联通装宽带的工作人员是有超级管理账号的，是可以修改这些配置的，而拿到这个超级管理账号，一种方式是直接给联通工作人员询要超级管理账号，而工作人员可能并不一定给，而另一种方式就是自力更生，通过提权用户等级来实现。</p>
+
+<h4 id="软硬件环境">软硬件环境</h4>
+
+<ul>
+<li>设备型号: FTTH终端 (WO-36型) HG8346R</li>
+<li>软件版本: V3R016C10S115</li>
+</ul>
+
+<h4 id="工具-windows">工具（Windows）</h4>
+
+<ul>
+<li>华为光猫ONT维修使能工具</li>
+<li>华为光猫配置文件加解密工具</li>
+<li>tftp32</li>
+</ul>
+
+<p>工具下载: <a href="https://pan.baidu.com/s/1jJwmyt4">https://pan.baidu.com/s/1jJwmyt4</a> 密码: dawv</p>
+
+<h3 id="一-提权过程">一. 提权过程</h3>
+
+<ol>
+<li>打开<strong>tftp32</strong>工具，用以提供 Tftp Server 来传输光猫的配置文件。</li>
+<li>电脑用网线连接光猫的任意 LAN 口，打开<strong>华为光猫ONT维修使能工具</strong> ，点击启动，观察光猫指示灯，直到所有指示灯全亮，这时即可关闭工具。</li>
+
+<li><p>通过 CMD 命令，telnet 192.168.1.1，输入用户名与密码 root / admin，进入 WAP 模式后通过下面命令来上传光猫配置文件，其中 192.168.1.3 更换为自己电脑的 IP。</p>
+
+<pre><code>backup cfg by tftp svrip 192.168.1.3 remotefile hw_ctree.xml
+</code></pre></li>
+
+<li><p>打开<strong>华为光猫配置文件加解密工具</strong> ，选择上一步获得的 hw_ctree.xml 文件，点击解密即可得到一个解密后的压缩文件，通过解压得到解密后可编辑的 hw_ctree.xml 文件，修改文件中内容 <strong>UserLevel=&ldquo;1&rdquo;</strong> 改为 <strong>UserLevel=&ldquo;0&rdquo;</strong>。</p></li>
+</ol>
+
+<h3 id="二-恢复光猫设备模式">二. 恢复光猫设备模式</h3>
+
+<pre><code>su
+shell
+restorehwmode.sh
+</code></pre>
+
+<p>回到 CMD telnet 中，操作上面命令恢复光猫模式，然后等待光猫重启完毕。</p>
+
+<h3 id="三-更新光猫配置文件">三. 更新光猫配置文件</h3>
+
+<ol>
+<li><p>将自己电脑设置为静态 IP, 其中网关 192.168.100.1，子网掩码 255.255.255.0。</p></li>
+
+<li><p>然后打开192.168.100.1的后台管理页面，用户名密码: telecomadmin / admintelecom，然后通过 <strong>系统工具</strong>-&gt;<strong>配置文件项</strong> 选中修改过的 hw_ctree.xml 配置文件，上传即可并重启光猫。</p></li>
+</ol>
+
+<h3 id="四-修改光猫模式">四. 修改光猫模式</h3>
+
+<p>登录光猫的后台管理界面，我们找到 WAN 选项卡页面，在 WAN 类型设置中，我们设置为<strong>路由 WAN</strong> 即可。
+最后重启光猫，接入自己的路由器即可通过 PPOE 直接拨号上网。</p>
+
+        </div>
+        
+
+        
+
+<div class="releated-content">
+  <h3>Related Posts</h3>
+  <ul>
+    
+    <li><a href="/posts/objective-c-fake-code/">Objective-C Fake Code</a></li>
+    
+    <li><a href="/posts/tips-for-using-git-hook/">Tips for using Git hook</a></li>
+    
+    <li><a href="/posts/dynamic-properties/">用 Runtime 动态增加 Category 的属性</a></li>
+    
+  </ul>
+</div>
+
+
+        
+        
+        <div style="height: 50px;"></div>
+        
+        <div class="post-comments">
+          <div id="disqus_thread"></div>
+<script>
+  window.addEventListener("load", () => {
+    (function() {
+      
+      var d = document,
+        s = d.createElement("script");
+      s.src = "https://YoungShook.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  });
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+
+        </div>
+        
+        
+
+        <div class="site-footer">
+  
+  <div class="site-footer-item">
+    <a href="/index.xml" target="_blank">RSS</a>
+  </div>
+  
+  
+</div>
+
+      </div>
+    </div>
+  </article>
+
+  <script src="/js/highlight.pack.js"></script>
+<script src="https://unpkg.com/quicklink@0.1.1/dist/quicklink.umd.js"></script>
+
+<script>
+  hljs.initHighlightingOnLoad();
+  
+  var posts = document.getElementById('posts-list');
+  posts && quicklink({
+    el: posts,
+    priority: true,
+  });
+</script>
+
+  
+
+</body>
+
+</html>

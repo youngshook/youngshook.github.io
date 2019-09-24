@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Ace&#39;s Life</title>
+    <link>https://blog.sker.me/categories/</link>
+    <description>Recent content in Categories on Ace&#39;s Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 25 Mar 2017 21:58:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.sker.me/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tech</title>
+      <link>https://blog.sker.me/categories/tech/</link>
+      <pubDate>Sat, 25 Mar 2017 21:58:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/categories/tech/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Life</title>
+      <link>https://blog.sker.me/categories/life/</link>
+      <pubDate>Thu, 29 Dec 2016 20:21:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/categories/life/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Milestone</title>
+      <link>https://blog.sker.me/categories/milestone/</link>
+      <pubDate>Thu, 29 Dec 2016 20:21:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/categories/milestone/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>iOS</title>
+      <link>https://blog.sker.me/categories/ios/</link>
+      <pubDate>Wed, 26 Nov 2014 16:02:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/categories/ios/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Music</title>
+      <link>https://blog.sker.me/categories/music/</link>
+      <pubDate>Thu, 26 Jun 2014 00:08:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/categories/music/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

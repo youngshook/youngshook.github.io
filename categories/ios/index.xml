@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>iOS on Ace&#39;s Life</title>
+    <link>https://blog.sker.me/categories/ios/</link>
+    <description>Recent content in iOS on Ace&#39;s Life</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 26 Nov 2014 16:02:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.sker.me/categories/ios/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Objective-C Fake Code</title>
+      <link>https://blog.sker.me/posts/objective-c-fake-code/</link>
+      <pubDate>Wed, 26 Nov 2014 16:02:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/posts/objective-c-fake-code/</guid>
+      <description>Swift 诞生, 意味着 Objective-C 语言终究会推出历史舞台. 今天打开邮件发现, 收到 NSHipster 社区对The NSHipster Fake Book 这本书的更新邮件, 整本书没多少页, 主要记录了些在开发过程中</description>
+    </item>
+    
+    <item>
+      <title>Tips for using Git hook</title>
+      <link>https://blog.sker.me/posts/tips-for-using-git-hook/</link>
+      <pubDate>Sat, 09 Aug 2014 13:27:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/posts/tips-for-using-git-hook/</guid>
+      <description>前言 Git大法好, 前段时间帮助公司QA做客户端自动化测试搭建, 过程中实践了些Git Hook的实用方法,想想还是有必要记录下来. Git pre-commit hook: 悬崖勒马</description>
+    </item>
+    
+    <item>
+      <title>用 Runtime 动态增加 Category 的属性</title>
+      <link>https://blog.sker.me/posts/dynamic-properties/</link>
+      <pubDate>Mon, 14 Jul 2014 16:12:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/posts/dynamic-properties/</guid>
+      <description>前言 为什么要写个前言呢, 我想先谈下DRY (Don&amp;rsquo;t Repeat Yourself), 在经历过诸多软件项目开发后,相信大家每到一个时期都会心想, &amp;ldquo;尼玛,看来又要重构了!</description>
+    </item>
+    
+    <item>
+      <title>在iOS App 图标上绘制版本信息</title>
+      <link>https://blog.sker.me/posts/overlaying-ios-app/</link>
+      <pubDate>Tue, 11 Feb 2014 23:42:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/posts/overlaying-ios-app/</guid>
+      <description>作为一名 iOS Developer, 想必在日差工作中会频繁的提交 App 的测试版本给 QA 测试, 或者给产品提供演示版本,通常我们并不能直观的通过 App 来判断其版本, 例如我们分发了</description>
+    </item>
+    
+    <item>
+      <title>Objective-C ARC 下的陷阱与最佳实践</title>
+      <link>https://blog.sker.me/posts/objective-c-arc-pitfalls/</link>
+      <pubDate>Wed, 22 May 2013 19:45:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/posts/objective-c-arc-pitfalls/</guid>
+      <description>Objective-C 是一个非常酷的编程语言 (尽管它和 C++ 一个年代出生). 它的流行不仅仅是因为 iOS 和 MacOS 平台,也是其在移动平台上强大的性能. 然而在日常开发过程中仍然要</description>
+    </item>
+    
+    <item>
+      <title>换个姿势调试 UIWebView</title>
+      <link>https://blog.sker.me/posts/debug-uiwebview/</link>
+      <pubDate>Sat, 06 Apr 2013 22:32:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/posts/debug-uiwebview/</guid>
+      <description>Hybrid App 开发 App 现在越来越流行, 尤其对于快速迭代开发来说, Hybrid App 是一个快速验证需求点的好方式,在 Hybrid App 过程中不可避免的要和 UIWebView 打交道, 调试 UIWebView 上的网页不像</description>
+    </item>
+    
+    <item>
+      <title>行走在 Objective-C 动态类型</title>
+      <link>https://blog.sker.me/posts/objective-c-dynamic-types/</link>
+      <pubDate>Tue, 12 Mar 2013 13:58:00 +0000</pubDate>
+      
+      <guid>https://blog.sker.me/posts/objective-c-dynamic-types/</guid>
+      <description>用了这么长时间的 Objective-C 语言, 怎么来&amp;rdquo;肤浅&amp;rdquo;描述下什么是 Objective-C 呢?, Objective-C 是一个 C 语言的超集, 整个语言是在 C 语言的基础上添加了一层</description>
+    </item>
+    
+  </channel>
+</rss>
